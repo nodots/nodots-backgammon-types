@@ -1,1 +1,17 @@
-{"name":"nodots-backgammon-types","version":"1.0.0","description":"Type definitions for nodots-backgammon","main":"index.js","types":"index.d.ts","private":true,"author":"Ken Riley <kenr@nodots.com>","license":"MIT"}
+{
+  "name": "nodots-backgammon-types",
+  "version": "2.0.0",
+  "description": "Type definitions for nodots-backgammon",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "private": true,
+  "scripts": {
+    "build": "tsc",
+    "prepare": "npm run build"
+  },
+  "author": "Ken Riley <kenr@nodots.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^5.7.3"
+  }
+}
