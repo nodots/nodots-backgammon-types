@@ -34,31 +34,26 @@ export type BackgammonMoveSkeleton = {
   destination: BackgammonMoveDestination
 }
 
-type BaseMove = {
+export interface BackgammonMoveBase {
   id: string
-  player: BackgammonPlayerActive
-  stateKind: BackgammonMoveStateKind
+  player: BackgammonPlayer
   dieValue: BackgammonDieValue
-  possibleMoves: BackgammonMoveSkeleton[]
-}
-
-export type BackgammonMoveReady = BaseMove & {
-  stateKind: 'ready'
-  player: BackgammonPlayerRolled
-  moveKind?: BackgammonMoveKind
-  origin?: BackgammonMoveOrigin
-}
-
-export type BackgammonMoveInProgress = BaseMove & {
-  stateKind: 'in-progress'
+  stateKind: BackgammonMoveStateKind
   moveKind: BackgammonMoveKind
-  player: BackgammonPlayerMoving
-  origin?: BackgammonMoveOrigin
-  destination?: BackgammonMoveDestination
 }
 
-// Split completed moves into two cases
-export type BackgammonMoveCompletedWithMove = BaseMove & {
+export interface BackgammonMoveReady extends BackgammonMoveBase {
+  stateKind: 'ready'
+  origin: BackgammonMoveOrigin
+}
+
+export interface BackgammonMoveInProgress extends BackgammonMoveBase {
+  stateKind: 'in-progress'
+  origin: BackgammonMoveOrigin
+  destination: BackgammonMoveDestination
+}
+
+export interface BackgammonMoveCompletedWithMove extends BackgammonMoveBase {
   stateKind: 'completed'
   moveKind: 'point-to-point' | 'reenter' | 'bear-off'
   origin: BackgammonMoveOrigin
@@ -66,11 +61,11 @@ export type BackgammonMoveCompletedWithMove = BaseMove & {
   isHit: boolean
 }
 
-export type BackgammonMoveCompletedNoMove = BaseMove & {
+export interface BackgammonMoveCompletedNoMove extends BackgammonMoveBase {
   stateKind: 'completed'
   moveKind: 'no-move'
-  origin: undefined
-  destination: undefined
+  origin?: undefined
+  destination?: undefined
   isHit: false
 }
 
@@ -78,13 +73,25 @@ export type BackgammonMoveCompleted =
   | BackgammonMoveCompletedWithMove
   | BackgammonMoveCompletedNoMove
 
-export type BackgammonMoveConfirmed = BaseMove & {
+export interface BackgammonMoveConfirmedWithMove extends BackgammonMoveBase {
   stateKind: 'confirmed'
-  moveKind: BackgammonMoveKind
+  moveKind: 'point-to-point' | 'reenter' | 'bear-off'
   origin: BackgammonMoveOrigin
   destination: BackgammonMoveDestination
   isHit: boolean
 }
+
+export interface BackgammonMoveConfirmedNoMove extends BackgammonMoveBase {
+  stateKind: 'confirmed'
+  moveKind: 'no-move'
+  origin?: undefined
+  destination?: undefined
+  isHit: false
+}
+
+export type BackgammonMoveConfirmed =
+  | BackgammonMoveConfirmedWithMove
+  | BackgammonMoveConfirmedNoMove
 
 export type BackgammonMove =
   | BackgammonMoveReady
@@ -92,19 +99,17 @@ export type BackgammonMove =
   | BackgammonMoveCompleted
   | BackgammonMoveConfirmed
 
-export type BackgammonMoves =
-  | [BackgammonMove, BackgammonMove]
-  | [BackgammonMove, BackgammonMove, BackgammonMove, BackgammonMove]
-
-export type BackgammonMoveResult = {
+export interface BackgammonMoveResult {
   board: BackgammonBoard
   move: BackgammonMoveCompleted
 }
 
-export type BackgammonMoveDryRunResult = {
+export interface BackgammonMoveDryRunResult {
   board: BackgammonBoard
-  move: BackgammonMoveReady
+  move: BackgammonMoveReady | BackgammonMoveCompleted
 }
+
+export type BackgammonMoves = Set<BackgammonMove>
 
 export interface MoveProps {
   move: BackgammonMove
