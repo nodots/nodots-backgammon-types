@@ -123,7 +123,9 @@ export interface GameClass {
     inactivePlayer?: BackgammonPlayerInactive,
     origin?: BackgammonMoveOrigin
   ) => BackgammonGame
-  rollForStart: (game: BackgammonGameRollingForStart) => BackgammonGameRolling
+  rollForStart: (
+    game: BackgammonGameRollingForStart
+  ) => BackgammonGameRolledForStart
   roll: (game: BackgammonGameRolledForStart) => BackgammonGameRolled
   move: (
     game: BackgammonGameMoving | BackgammonGameRolled,
