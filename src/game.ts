@@ -15,8 +15,8 @@ import {
   BackgammonPlayerRolled,
   BackgammonPlayerRolledForStart,
   BackgammonPlayerRolling,
-  BackgammonPlayers,
   BackgammonPlayerWinner,
+  BackgammonPlayers,
 } from './player'
 
 export type Latitude = 'north' | 'south'
@@ -82,6 +82,7 @@ export type BackgammonGameMoving = Game & {
   activeColor: BackgammonColor
   activePlay: BackgammonPlayMoving
   activePlayer: BackgammonPlayerMoving
+  activePlayer: BackgammonPlayerActive
   inactivePlayer: BackgammonPlayerInactive
 }
 
