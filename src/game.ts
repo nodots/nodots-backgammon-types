@@ -11,6 +11,9 @@ import {
   BackgammonPlayer,
   BackgammonPlayerActive,
   BackgammonPlayerInactive,
+  BackgammonPlayerMoving,
+  BackgammonPlayerRolled,
+  BackgammonPlayerRolledForStart,
   BackgammonPlayerRolling,
   BackgammonPlayers,
   BackgammonPlayerWinner,
@@ -55,21 +58,21 @@ export type BackgammonGameRollingForStart = Game & {
 export type BackgammonGameRolledForStart = Game & {
   stateKind: 'rolled-for-start'
   activeColor: BackgammonColor
-  activePlayer: BackgammonPlayerRolling
+  activePlayer: BackgammonPlayerRolledForStart
   inactivePlayer: BackgammonPlayerInactive
 }
 
 export type BackgammonGameRolling = Game & {
   stateKind: 'rolling'
   activeColor: BackgammonColor
-  activePlayer: BackgammonPlayerActive
+  activePlayer: BackgammonPlayerRolling
   inactivePlayer: BackgammonPlayerInactive
 }
 
 export type BackgammonGameRolled = Game & {
   stateKind: 'rolled'
   activeColor: BackgammonColor
-  activePlayer: BackgammonPlayerActive
+  activePlayer: BackgammonPlayerRolled
   inactivePlayer: BackgammonPlayerInactive
   activePlay: BackgammonPlayRolled
 }
@@ -78,7 +81,7 @@ export type BackgammonGameMoving = Game & {
   stateKind: 'moving'
   activeColor: BackgammonColor
   activePlay: BackgammonPlayMoving
-  activePlayer: BackgammonPlayerActive
+  activePlayer: BackgammonPlayerMoving
   inactivePlayer: BackgammonPlayerInactive
 }
 
@@ -91,6 +94,7 @@ export type BackgammonGame =
   | BackgammonGameRollingForStart
   | BackgammonGameRolledForStart
   | BackgammonGameRolling
+  | BackgammonGameRolled
   | BackgammonGameMoving
   | BackgammonGameCompleted
 
