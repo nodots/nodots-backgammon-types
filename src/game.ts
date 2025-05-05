@@ -1,116 +1,115 @@
-import { BackgammonBoard } from './board';
-import { BackgammonCube } from './cube';
-import { IntegerRange } from './generics';
+import { BackgammonBoard } from './board'
+import { BackgammonMoveOrigin } from './checkercontainer'
+import { BackgammonCube } from './cube'
+import { IntegerRange } from './generics'
 import {
   BackgammonPlay,
   BackgammonPlayMoving,
   BackgammonPlayRolled,
-} from './play';
+} from './play'
 import {
+  BackgammonPlayer,
   BackgammonPlayerActive,
-  BackgammonPlayerRolledForStart,
-  BackgammonPlayers,
-  BackgammonPlayerWinner,
   BackgammonPlayerInactive,
   BackgammonPlayerRolling,
-  BackgammonPlayer,
-} from './player';
-import { BackgammonMoveOrigin } from './checkercontainer';
+  BackgammonPlayers,
+  BackgammonPlayerWinner,
+} from './player'
 
-export type Latitude = 'north' | 'south';
-export type Longitude = 'east' | 'west';
-export type BackgammonColor = 'black' | 'white';
-export type BackgammonMoveDirection = 'clockwise' | 'counterclockwise';
-export type BackgammonPips = IntegerRange<1, 167>;
+export type Latitude = 'north' | 'south'
+export type Longitude = 'east' | 'west'
+export type BackgammonColor = 'black' | 'white'
+export type BackgammonMoveDirection = 'clockwise' | 'counterclockwise'
+export type BackgammonPips = IntegerRange<1, 167>
 
-export const MAX_PIP_COUNT = 167;
-export const CHECKERS_PER_PLAYER = 15;
+export const MAX_PIP_COUNT = 167
+export const CHECKERS_PER_PLAYER = 15
 
 export type BackgammonGameStateKind =
   | 'rolling-for-start'
   | 'rolled-for-start'
   | 'rolling'
   | 'moving'
-  | 'completed';
+  | 'completed'
 
 type BaseGame = {
-  id: string;
-  players: BackgammonPlayers;
-  board: BackgammonBoard;
-  cube: BackgammonCube;
-  winner?: BackgammonPlayer;
-  activeColor?: BackgammonColor;
-  activePlay?: BackgammonPlay;
-  activePlayer?: BackgammonPlayer;
-  inactivePlayer?: BackgammonPlayer;
-};
+  id: string
+  players: BackgammonPlayers
+  board: BackgammonBoard
+  cube: BackgammonCube
+  winner?: BackgammonPlayer
+  activeColor?: BackgammonColor
+  activePlay?: BackgammonPlay
+  activePlayer?: BackgammonPlayer
+  inactivePlayer?: BackgammonPlayer
+}
 
 type Game = BaseGame & {
-  stateKind: BackgammonGameStateKind;
-};
+  stateKind: BackgammonGameStateKind
+}
 
 export type BackgammonGameRollingForStart = Game & {
-  stateKind: 'rolling-for-start';
-};
+  stateKind: 'rolling-for-start'
+}
 
 export type BackgammonGameRolledForStart = Game & {
-  stateKind: 'rolled-for-start';
-  activeColor: BackgammonColor;
-  activePlayer: BackgammonPlayerRolling;
-  inactivePlayer: BackgammonPlayerInactive;
-};
+  stateKind: 'rolled-for-start'
+  activeColor: BackgammonColor
+  activePlayer: BackgammonPlayerRolling
+  inactivePlayer: BackgammonPlayerInactive
+}
 
 export type BackgammonGameRolling = Game & {
-  stateKind: 'rolling';
-  activeColor: BackgammonColor;
-  activePlayer: BackgammonPlayerActive;
-  inactivePlayer: BackgammonPlayerInactive;
-};
+  stateKind: 'rolling'
+  activeColor: BackgammonColor
+  activePlayer: BackgammonPlayerActive
+  inactivePlayer: BackgammonPlayerInactive
+}
 
 export type BackgammonGameRolled = Game & {
-  stateKind: 'rolled';
-  activeColor: BackgammonColor;
-  activePlayer: BackgammonPlayerActive;
-  inactivePlayer: BackgammonPlayerInactive;
-  activePlay: BackgammonPlayRolled;
-};
+  stateKind: 'rolled'
+  activeColor: BackgammonColor
+  activePlayer: BackgammonPlayerActive
+  inactivePlayer: BackgammonPlayerInactive
+  activePlay: BackgammonPlayRolled
+}
 
 export type BackgammonGameMoving = Game & {
-  stateKind: 'moving';
-  activeColor: BackgammonColor;
-  activePlay: BackgammonPlayMoving;
-  activePlayer: BackgammonPlayerActive;
-  inactivePlayer: BackgammonPlayerInactive;
-};
+  stateKind: 'moving'
+  activeColor: BackgammonColor
+  activePlay: BackgammonPlayMoving
+  activePlayer: BackgammonPlayerActive
+  inactivePlayer: BackgammonPlayerInactive
+}
 
 export type BackgammonGameCompleted = Game & {
-  stateKind: 'completed';
-  winner: BackgammonPlayerWinner;
-};
+  stateKind: 'completed'
+  winner: BackgammonPlayerWinner
+}
 
 export type BackgammonGame =
   | BackgammonGameRollingForStart
   | BackgammonGameRolledForStart
   | BackgammonGameRolling
   | BackgammonGameMoving
-  | BackgammonGameCompleted;
+  | BackgammonGameCompleted
 
 export interface GameProps {
-  players: BackgammonPlayers;
-  board?: BackgammonBoard;
-  cube?: BackgammonCube;
+  players: BackgammonPlayers
+  board?: BackgammonBoard
+  cube?: BackgammonCube
 }
 
 export interface GameClass {
-  id: string;
-  stateKind: BackgammonGameStateKind;
-  players: BackgammonPlayers;
-  board: BackgammonBoard;
-  cube: BackgammonCube;
-  activeColor: BackgammonColor;
-  activePlay: BackgammonPlay;
-  activePlayer: BackgammonPlayerActive;
-  inactivePlayer: BackgammonPlayerInactive;
+  id: string
+  stateKind: BackgammonGameStateKind
+  players: BackgammonPlayers
+  board: BackgammonBoard
+  cube: BackgammonCube
+  activeColor: BackgammonColor
+  activePlay: BackgammonPlay
+  activePlayer: BackgammonPlayerActive
+  inactivePlayer: BackgammonPlayerInactive
 
   initialize: (
     players: BackgammonPlayers,
@@ -123,18 +122,20 @@ export interface GameClass {
     activePlayer?: BackgammonPlayerActive,
     inactivePlayer?: BackgammonPlayerInactive,
     origin?: BackgammonMoveOrigin
-  ) => BackgammonGame;
-  rollForStart: (game: BackgammonGameRollingForStart) => BackgammonGameRolling;
-  roll: (game: BackgammonGameRolledForStart) => BackgammonGameRolled;
+  ) => BackgammonGame
+  rollForStart: (
+    game: BackgammonGameRollingForStart
+  ) => BackgammonGameRolledForStart
+  roll: (game: BackgammonGameRolledForStart) => BackgammonGameRolled
   move: (
     game: BackgammonGameMoving | BackgammonGameRolled,
     origin: BackgammonMoveOrigin
-  ) => BackgammonGameMoving;
-  getActivePlayer: (game: BackgammonGame) => BackgammonPlayerActive;
-  getInactivePlayer: (game: BackgammonGame) => BackgammonPlayerInactive;
+  ) => BackgammonGameMoving
+  getActivePlayer: (game: BackgammonGame) => BackgammonPlayerActive
+  getInactivePlayer: (game: BackgammonGame) => BackgammonPlayerInactive
   getPlayersForColor: (
     players: BackgammonPlayers,
     color: BackgammonColor
-  ) => [BackgammonPlayerActive, BackgammonPlayerInactive];
-  sanityCheckMovingGame: (game: BackgammonGame) => BackgammonGameMoving | false;
+  ) => [BackgammonPlayerActive, BackgammonPlayerInactive]
+  sanityCheckMovingGame: (game: BackgammonGame) => BackgammonGameMoving | false
 }
