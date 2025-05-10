@@ -32,7 +32,9 @@ export type BackgammonGameStateKind =
   | 'rolling-for-start'
   | 'rolled-for-start'
   | 'rolling'
+  | 'rolled'
   | 'moving'
+  | 'moved'
   | 'completed'
 
 type BaseGame = {
