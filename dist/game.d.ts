@@ -1,9 +1,9 @@
 import { BackgammonBoard } from './board';
+import { BackgammonMoveOrigin } from './checkercontainer';
 import { BackgammonCube } from './cube';
 import { IntegerRange } from './generics';
 import { BackgammonPlay, BackgammonPlayMoving, BackgammonPlayRolled } from './play';
-import { BackgammonPlayerActive, BackgammonPlayers, BackgammonPlayerWinner, BackgammonPlayerInactive, BackgammonPlayerRolling, BackgammonPlayer } from './player';
-import { BackgammonMoveOrigin } from './checkercontainer';
+import { BackgammonPlayer, BackgammonPlayerActive, BackgammonPlayerInactive, BackgammonPlayerMoving, BackgammonPlayerRolled, BackgammonPlayerRolledForStart, BackgammonPlayerRolling, BackgammonPlayerWinner, BackgammonPlayers } from './player';
 export type Latitude = 'north' | 'south';
 export type Longitude = 'east' | 'west';
 export type BackgammonColor = 'black' | 'white';
@@ -11,7 +11,7 @@ export type BackgammonMoveDirection = 'clockwise' | 'counterclockwise';
 export type BackgammonPips = IntegerRange<1, 167>;
 export declare const MAX_PIP_COUNT = 167;
 export declare const CHECKERS_PER_PLAYER = 15;
-export type BackgammonGameStateKind = 'rolling-for-start' | 'rolled-for-start' | 'rolling' | 'moving' | 'completed';
+export type BackgammonGameStateKind = 'rolling-for-start' | 'rolled-for-start' | 'rolling' | 'rolled' | 'moving' | 'moved' | 'completed';
 type BaseGame = {
     id: string;
     players: BackgammonPlayers;
@@ -32,19 +32,19 @@ export type BackgammonGameRollingForStart = Game & {
 export type BackgammonGameRolledForStart = Game & {
     stateKind: 'rolled-for-start';
     activeColor: BackgammonColor;
-    activePlayer: BackgammonPlayerRolling;
+    activePlayer: BackgammonPlayerRolledForStart;
     inactivePlayer: BackgammonPlayerInactive;
 };
 export type BackgammonGameRolling = Game & {
     stateKind: 'rolling';
     activeColor: BackgammonColor;
-    activePlayer: BackgammonPlayerActive;
+    activePlayer: BackgammonPlayerRolling;
     inactivePlayer: BackgammonPlayerInactive;
 };
 export type BackgammonGameRolled = Game & {
     stateKind: 'rolled';
     activeColor: BackgammonColor;
-    activePlayer: BackgammonPlayerActive;
+    activePlayer: BackgammonPlayerRolled;
     inactivePlayer: BackgammonPlayerInactive;
     activePlay: BackgammonPlayRolled;
 };
@@ -52,14 +52,14 @@ export type BackgammonGameMoving = Game & {
     stateKind: 'moving';
     activeColor: BackgammonColor;
     activePlay: BackgammonPlayMoving;
-    activePlayer: BackgammonPlayerActive;
+    activePlayer: BackgammonPlayerMoving;
     inactivePlayer: BackgammonPlayerInactive;
 };
 export type BackgammonGameCompleted = Game & {
     stateKind: 'completed';
     winner: BackgammonPlayerWinner;
 };
-export type BackgammonGame = BackgammonGameRollingForStart | BackgammonGameRolledForStart | BackgammonGameRolling | BackgammonGameMoving | BackgammonGameCompleted;
+export type BackgammonGame = BackgammonGameRollingForStart | BackgammonGameRolledForStart | BackgammonGameRolling | BackgammonGameRolled | BackgammonGameMoving | BackgammonGameCompleted;
 export interface GameProps {
     players: BackgammonPlayers;
     board?: BackgammonBoard;
@@ -76,7 +76,7 @@ export interface GameClass {
     activePlayer: BackgammonPlayerActive;
     inactivePlayer: BackgammonPlayerInactive;
     initialize: (players: BackgammonPlayers, id?: string, stateKind?: BackgammonGameStateKind, board?: BackgammonBoard, cube?: BackgammonCube, activePlay?: BackgammonPlay, activeColor?: BackgammonColor, activePlayer?: BackgammonPlayerActive, inactivePlayer?: BackgammonPlayerInactive, origin?: BackgammonMoveOrigin) => BackgammonGame;
-    rollForStart: (game: BackgammonGameRollingForStart) => BackgammonGameRolling;
+    rollForStart: (game: BackgammonGameRollingForStart) => BackgammonGameRolledForStart;
     roll: (game: BackgammonGameRolledForStart) => BackgammonGameRolled;
     move: (game: BackgammonGameMoving | BackgammonGameRolled, origin: BackgammonMoveOrigin) => BackgammonGameMoving;
     getActivePlayer: (game: BackgammonGame) => BackgammonPlayerActive;

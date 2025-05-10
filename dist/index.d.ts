@@ -10,3 +10,4 @@ export * from './move';
 export * from './offer';
 export * from './play';
 export * from './player';
+export * from './players';

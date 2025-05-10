@@ -25,3 +25,4 @@ __exportStar(require("./move"), exports);
 __exportStar(require("./offer"), exports);
 __exportStar(require("./play"), exports);
 __exportStar(require("./player"), exports);
+__exportStar(require("./players"), exports);
