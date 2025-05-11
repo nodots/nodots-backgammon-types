@@ -55,11 +55,18 @@ export type BackgammonGameMoving = Game & {
     activePlayer: BackgammonPlayerMoving;
     inactivePlayer: BackgammonPlayerInactive;
 };
+export type BackgammonGameMoved = Game & {
+    stateKind: 'moved';
+    activeColor: BackgammonColor;
+    activePlay: BackgammonPlayMoving;
+    activePlayer: BackgammonPlayerMoving;
+    inactivePlayer: BackgammonPlayerInactive;
+};
 export type BackgammonGameCompleted = Game & {
     stateKind: 'completed';
     winner: BackgammonPlayerWinner;
 };
-export type BackgammonGame = BackgammonGameRollingForStart | BackgammonGameRolledForStart | BackgammonGameRolling | BackgammonGameRolled | BackgammonGameMoving | BackgammonGameCompleted;
+export type BackgammonGame = BackgammonGameRollingForStart | BackgammonGameRolledForStart | BackgammonGameRolling | BackgammonGameRolled | BackgammonGameMoving | BackgammonGameMoved | BackgammonGameCompleted;
 export interface GameProps {
     players: BackgammonPlayers;
     board?: BackgammonBoard;
@@ -78,7 +85,7 @@ export interface GameClass {
     initialize: (players: BackgammonPlayers, id?: string, stateKind?: BackgammonGameStateKind, board?: BackgammonBoard, cube?: BackgammonCube, activePlay?: BackgammonPlay, activeColor?: BackgammonColor, activePlayer?: BackgammonPlayerActive, inactivePlayer?: BackgammonPlayerInactive, origin?: BackgammonMoveOrigin) => BackgammonGame;
     rollForStart: (game: BackgammonGameRollingForStart) => BackgammonGameRolledForStart;
     roll: (game: BackgammonGameRolledForStart) => BackgammonGameRolled;
-    move: (game: BackgammonGameMoving | BackgammonGameRolled, origin: BackgammonMoveOrigin) => BackgammonGameMoving;
+    move: (game: BackgammonGameMoving | BackgammonGameRolled, origin: BackgammonMoveOrigin) => BackgammonGameMoved;
     getActivePlayer: (game: BackgammonGame) => BackgammonPlayerActive;
     getInactivePlayer: (game: BackgammonGame) => BackgammonPlayerInactive;
     getPlayersForColor: (players: BackgammonPlayers, color: BackgammonColor) => [BackgammonPlayerActive, BackgammonPlayerInactive];
