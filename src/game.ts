@@ -107,6 +107,7 @@ export type BackgammonGame =
   | BackgammonGameRolling
   | BackgammonGameRolled
   | BackgammonGameMoving
+  | BackgammonGameMoved
   | BackgammonGameCompleted
 
 export interface GameProps {
