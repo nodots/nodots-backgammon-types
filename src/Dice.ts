@@ -1,4 +1,4 @@
-import { BackgammonColor } from './game'
+import { BackgammonColor } from './Game'
 export type BackgammonDieValue = 1 | 2 | 3 | 4 | 5 | 6
 export type BackgammonDieOrder = 0 | 1
 export type BackgammonRoll = [BackgammonDieValue, BackgammonDieValue]

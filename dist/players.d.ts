@@ -1,2 +1,2 @@
-import { PlayerClass } from './player';
+import { PlayerClass } from './Player';
 export type Players = [PlayerClass, PlayerClass];

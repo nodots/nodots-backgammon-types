@@ -1,3 +1,3 @@
-import { IntegerRange } from './generics';
+import { IntegerRange } from './Generics';
 export declare const MAX_PIP_COUNT = 167;
 export type BackgammonPips = IntegerRange<0, 167>;

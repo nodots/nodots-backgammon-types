@@ -1,0 +1,15 @@
+src/Board.ts(8,8): error TS2306: File '/Users/kenr/Code/nodots-backgammon/nodots-backgammon-types/src/CheckerContainer.ts' is not a module.
+src/Board.ts(14,8): error TS2306: File '/Users/kenr/Code/nodots-backgammon/nodots-backgammon-types/src/Game.ts' is not a module.
+src/Board.ts(16,40): error TS2306: File '/Users/kenr/Code/nodots-backgammon/nodots-backgammon-types/src/Move.ts' is not a module.
+src/Board.ts(17,34): error TS2306: File '/Users/kenr/Code/nodots-backgammon/nodots-backgammon-types/src/Player.ts' is not a module.
+src/Checker.ts(1,33): error TS2306: File '/Users/kenr/Code/nodots-backgammon/nodots-backgammon-types/src/Game.ts' is not a module.
+src/Checker.ts(2,42): error TS2306: File '/Users/kenr/Code/nodots-backgammon/nodots-backgammon-types/src/Player.ts' is not a module.
+src/Dice.ts(1,33): error TS2306: File '/Users/kenr/Code/nodots-backgammon/nodots-backgammon-types/src/Game.ts' is not a module.
+src/Import.ts(1,10): error TS2724: '"."' has no exported member named 'BackgammonColor'. Did you mean 'BackgammonRoll'?
+src/Import.ts(2,52): error TS2306: File '/Users/kenr/Code/nodots-backgammon/nodots-backgammon-types/src/CheckerContainer.ts' is not a module.
+src/index.ts(3,15): error TS2306: File '/Users/kenr/Code/nodots-backgammon/nodots-backgammon-types/src/CheckerContainer.ts' is not a module.
+src/index.ts(7,15): error TS2306: File '/Users/kenr/Code/nodots-backgammon/nodots-backgammon-types/src/Game.ts' is not a module.
+src/index.ts(8,15): error TS2306: File '/Users/kenr/Code/nodots-backgammon/nodots-backgammon-types/src/Move.ts' is not a module.
+src/index.ts(10,15): error TS2306: File '/Users/kenr/Code/nodots-backgammon/nodots-backgammon-types/src/Player.ts' is not a module.
+src/index.ts(11,15): error TS2306: File '/Users/kenr/Code/nodots-backgammon/nodots-backgammon-types/src/Cube.ts' is not a module.
+src/Players.ts(1,29): error TS2306: File '/Users/kenr/Code/nodots-backgammon/nodots-backgammon-types/src/Player.ts' is not a module.
