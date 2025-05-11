@@ -9,15 +9,15 @@ export type BackgammonPlayResult = {
     move: BackgammonMoveCompleted;
 };
 export type BackgammonPlayStateKind = 'rolling' | 'rolled' | 'moving' | 'moved' | 'confirmed';
-type BasePlay = {
+interface BasePlay {
     id: string;
     player: BackgammonPlayer;
     board: BackgammonBoard;
     moves?: BackgammonMoves;
-};
-type Play = BasePlay & {
+}
+interface Play extends BasePlay {
     stateKind: BackgammonPlayStateKind;
-};
+}
 export type BackgammonPlayRolling = Play & {
     stateKind: 'rolling';
     player: BackgammonPlayerRolling;

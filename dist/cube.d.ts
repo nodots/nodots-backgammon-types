@@ -2,14 +2,14 @@ import { BackgammonPlayer, BackgammonPlayers } from './player';
 export type BackgammonCubeValue = undefined | 2 | 4 | 8 | 16 | 32 | 64;
 export declare const BackgammonCubeValues: BackgammonCubeValue[];
 export type BackgammonCubeStateKind = 'initialized' | 'doubled' | 'maxxed';
-type BaseCube = {
+interface BaseCube {
     id: string;
     owner: BackgammonPlayer | undefined;
     value: BackgammonPlayer | undefined;
-};
-type Cube = BaseCube & {
+}
+interface Cube extends BaseCube {
     stateKind: BackgammonCubeStateKind;
-};
+}
 export type BackgammonCubeInitialized = Cube & {
     stateKind: 'initialized';
     owner: undefined;

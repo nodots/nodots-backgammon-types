@@ -3,15 +3,15 @@ export type BackgammonDieValue = 1 | 2 | 3 | 4 | 5 | 6;
 export type BackgammonDieOrder = 0 | 1;
 export type BackgammonRoll = [BackgammonDieValue, BackgammonDieValue];
 export type BackgammonDiceStateKind = 'inactive' | 'rolling' | 'rolled';
-type BaseDice = {
+interface BaseDice {
     id: string;
     color: BackgammonColor;
     currentRoll?: BackgammonRoll | undefined;
     total?: number;
-};
-type Dice = BaseDice & {
+}
+interface Dice extends BaseDice {
     stateKind: BackgammonDiceStateKind;
-};
+}
 export type BackgammonDiceInactive = Dice & {
     stateKind: 'inactive';
 };

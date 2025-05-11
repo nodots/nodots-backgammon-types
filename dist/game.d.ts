@@ -12,7 +12,7 @@ export type BackgammonPips = IntegerRange<1, 167>;
 export declare const MAX_PIP_COUNT = 167;
 export declare const CHECKERS_PER_PLAYER = 15;
 export type BackgammonGameStateKind = 'rolling-for-start' | 'rolled-for-start' | 'rolling' | 'rolled' | 'moving' | 'moved' | 'completed';
-type BaseGame = {
+interface BaseGame {
     id: string;
     players: BackgammonPlayers;
     board: BackgammonBoard;
@@ -22,10 +22,10 @@ type BaseGame = {
     activePlay?: BackgammonPlay;
     activePlayer?: BackgammonPlayer;
     inactivePlayer?: BackgammonPlayer;
-};
-type Game = BaseGame & {
+}
+interface Game extends BaseGame {
     stateKind: BackgammonGameStateKind;
-};
+}
 export type BackgammonGameRollingForStart = Game & {
     stateKind: 'rolling-for-start';
 };

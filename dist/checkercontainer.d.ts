@@ -2,6 +2,7 @@ import { BackgammonChecker } from './checker';
 import { BackgammonBoard } from './board';
 import { BackgammonCheckercontainerImport } from './import';
 import { BackgammonMoveDirection } from './game';
+import { IntegerRange } from './generics';
 type BarPosition = 'bar';
 type OffPosition = 'off';
 interface BackgammonPointPosition {
@@ -39,7 +40,7 @@ export interface BackgammonOff extends BackgammonCheckercontainer {
 export type BackgammonOffContainer = {
     [direction in BackgammonMoveDirection]: BackgammonOff;
 };
-export type BackgammonPointValue = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23 | 24;
+export type BackgammonPointValue = IntegerRange<1, 24>;
 export type BackgammonPoints = [
     BackgammonPoint,
     BackgammonPoint,

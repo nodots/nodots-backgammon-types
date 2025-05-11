@@ -37,7 +37,7 @@ export type BackgammonGameStateKind =
   | 'moved'
   | 'completed'
 
-type BaseGame = {
+interface BaseGame {
   id: string
   players: BackgammonPlayers
   board: BackgammonBoard
@@ -49,7 +49,7 @@ type BaseGame = {
   inactivePlayer?: BackgammonPlayer
 }
 
-type Game = BaseGame & {
+interface Game extends BaseGame {
   stateKind: BackgammonGameStateKind
 }
 

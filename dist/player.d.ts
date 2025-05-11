@@ -7,16 +7,16 @@ import { BackgammonPlayMoving } from './play';
 import { BackgammonMoveResult } from './move';
 import { BackgammonMoveOrigin, BackgammonPoint } from './checkercontainer';
 export type BackgammonPlayerStateKind = 'inactive' | 'rolling-for-start' | 'rolled-for-start' | 'rolling' | 'rolled' | 'moving' | 'moved' | 'winner';
-type BasePlayer = {
+interface BasePlayer {
     id?: string;
     color: BackgammonColor;
     direction: BackgammonMoveDirection;
     dice: BackgammonDice;
     pipCount: BackgammonPips;
-};
-type Player = BasePlayer & {
+}
+interface Player extends BasePlayer {
     stateKind: BackgammonPlayerStateKind;
-};
+}
 export type BackgammonPlayerInitializing = Player & {
     stateKind: 'initializing';
 };

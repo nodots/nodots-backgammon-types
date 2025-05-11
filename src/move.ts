@@ -7,10 +7,8 @@ import {
 } from './checkercontainer'
 import { BackgammonDieValue } from './dice'
 import { BackgammonMoveDirection } from './game'
-import { BackgammonPlayMoving } from './play'
 import {
   BackgammonPlayer,
-  BackgammonPlayerActive,
   BackgammonPlayerMoving,
   BackgammonPlayerRolled,
 } from './player'

@@ -1,16 +1,16 @@
-import { BackgammonChecker } from './checker';
+import { BackgammonChecker } from './checker'
 import {
   BackgammonDice,
   BackgammonDiceInactive,
   BackgammonDiceRolling,
   BackgammonDiceRolled,
-} from './dice';
-import { BackgammonPips } from './pip';
-import { BackgammonMoveDirection, BackgammonColor } from './game';
-import { BackgammonBoard } from './board';
-import { BackgammonPlayMoving } from './play';
-import { BackgammonMoveResult } from './move';
-import { BackgammonMoveOrigin, BackgammonPoint } from './checkercontainer';
+} from './dice'
+import { BackgammonPips } from './pip'
+import { BackgammonMoveDirection, BackgammonColor } from './game'
+import { BackgammonBoard } from './board'
+import { BackgammonPlayMoving } from './play'
+import { BackgammonMoveResult } from './move'
+import { BackgammonMoveOrigin, BackgammonPoint } from './checkercontainer'
 
 export type BackgammonPlayerStateKind =
   | 'inactive'
@@ -20,71 +20,71 @@ export type BackgammonPlayerStateKind =
   | 'rolled'
   | 'moving'
   | 'moved'
-  | 'winner';
+  | 'winner'
 
-type BasePlayer = {
-  id?: string;
-  color: BackgammonColor;
-  direction: BackgammonMoveDirection;
-  dice: BackgammonDice;
-  pipCount: BackgammonPips;
-};
+interface BasePlayer {
+  id?: string
+  color: BackgammonColor
+  direction: BackgammonMoveDirection
+  dice: BackgammonDice
+  pipCount: BackgammonPips
+}
 
-type Player = BasePlayer & {
-  stateKind: BackgammonPlayerStateKind;
-};
+interface Player extends BasePlayer {
+  stateKind: BackgammonPlayerStateKind
+}
 
 export type BackgammonPlayerInitializing = Player & {
-  stateKind: 'initializing';
-};
+  stateKind: 'initializing'
+}
 
 export type BackgammonPlayerInactive = Player & {
-  id: string;
-  stateKind: 'inactive';
-  dice: BackgammonDiceInactive;
-};
+  id: string
+  stateKind: 'inactive'
+  dice: BackgammonDiceInactive
+}
 
 export type BackgammonPlayerRollingForStart = Player & {
-  id: string;
-  stateKind: 'rolling-for-start';
-  dice: BackgammonDiceInactive;
-};
+  id: string
+  stateKind: 'rolling-for-start'
+  dice: BackgammonDiceInactive
+}
 
 export type BackgammonPlayerRolledForStart = Player & {
-  id: string;
-  stateKind: 'rolled-for-start';
-  dice: BackgammonDiceInactive;
-};
+  id: string
+  stateKind: 'rolled-for-start'
+  dice: BackgammonDiceInactive
+}
 
 export type BackgammonPlayerRolling = Player & {
-  id: string;
-  stateKind: 'rolling';
-  dice: BackgammonDiceRolling;
-};
+  id: string
+  stateKind: 'rolling'
+  dice: BackgammonDiceRolling
+}
 
 export type BackgammonPlayerRolled = Player & {
-  id: string;
-  stateKind: 'rolled';
-  dice: BackgammonDiceRolled;
-};
+  id: string
+  stateKind: 'rolled'
+  dice: BackgammonDiceRolled
+}
 
 export type BackgammonPlayerMoving = Player & {
-  id: string;
-  stateKind: 'moving';
-  dice: BackgammonDiceRolled;
-};
+  id: string
+  stateKind: 'moving'
+  dice: BackgammonDiceRolled
+}
 
 export type BackgammonPlayerMoved = Player & {
-  id: string;
-  stateKind: 'moved';
-  dice: BackgammonDiceRolled;
-};
+  id: string
+  stateKind: 'moved'
+  dice: BackgammonDiceRolled
+}
 
 export type BackgammonPlayerWinner = Player & {
-  id: string;
-  stateKind: 'winner';
-  dice: BackgammonDiceRolled;
-};
+  id: string
+  stateKind: 'winner'
+  dice: BackgammonDiceRolled
+}
 
 export type BackgammonPlayer =
   | BackgammonPlayerInactive
@@ -94,7 +94,7 @@ export type BackgammonPlayer =
   | BackgammonPlayerRolled
   | BackgammonPlayerMoving
   | BackgammonPlayerMoved
-  | BackgammonPlayerWinner;
+  | BackgammonPlayerWinner
 
 export type BackgammonPlayerActive =
   | BackgammonPlayerRollingForStart
@@ -102,19 +102,19 @@ export type BackgammonPlayerActive =
   | BackgammonPlayerRolling
   | BackgammonPlayerRolled
   | BackgammonPlayerMoving
-  | BackgammonPlayerMoved;
+  | BackgammonPlayerMoved
 
-export type BackgammonPlayers = [BackgammonPlayer, BackgammonPlayer];
+export type BackgammonPlayers = [BackgammonPlayer, BackgammonPlayer]
 
 export type BackgammonPlayerCheckers<
-  T extends BackgammonChecker = BackgammonChecker,
-> = [T, T, T, T, T, T, T, T, T, T, T, T, T, T, T];
+  T extends BackgammonChecker = BackgammonChecker
+> = [T, T, T, T, T, T, T, T, T, T, T, T, T, T, T]
 
 export interface PlayerClass {
-  id: string;
-  stateKind: BackgammonPlayerStateKind;
-  dice: BackgammonDice;
-  pipCount: number;
+  id: string
+  stateKind: BackgammonPlayerStateKind
+  dice: BackgammonDice
+  pipCount: number
 
   initialize: (
     color: BackgammonColor,
@@ -122,19 +122,19 @@ export interface PlayerClass {
     dice?: BackgammonDice,
     id?: string,
     stateKind?: BackgammonPlayerStateKind
-  ) => BackgammonPlayer;
-  roll: (player: BackgammonPlayerRolling) => BackgammonPlayerRolled;
+  ) => BackgammonPlayer
+  roll: (player: BackgammonPlayerRolling) => BackgammonPlayerRolled
   move: (
     board: BackgammonBoard,
     play: BackgammonPlayMoving,
     origin: BackgammonMoveOrigin
-  ) => BackgammonMoveResult;
+  ) => BackgammonMoveResult
   getHomeBoard: (
     board: BackgammonBoard,
     player: BackgammonPlayer
-  ) => BackgammonPoint[];
+  ) => BackgammonPoint[]
   getOpponentBoard: (
     board: BackgammonBoard,
     player: BackgammonPlayer
-  ) => BackgammonPoint[];
+  ) => BackgammonPoint[]
 }
