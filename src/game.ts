@@ -88,6 +88,14 @@ export type BackgammonGameMoving = Game & {
   inactivePlayer: BackgammonPlayerInactive
 }
 
+export type BackgammonGameMoved = Game & {
+  stateKind: 'moved'
+  activeColor: BackgammonColor
+  activePlay: BackgammonPlayMoving
+  activePlayer: BackgammonPlayerMoving
+  inactivePlayer: BackgammonPlayerInactive
+}
+
 export type BackgammonGameCompleted = Game & {
   stateKind: 'completed'
   winner: BackgammonPlayerWinner
@@ -137,7 +145,7 @@ export interface GameClass {
   move: (
     game: BackgammonGameMoving | BackgammonGameRolled,
     origin: BackgammonMoveOrigin
-  ) => BackgammonGameMoving
+  ) => BackgammonGameMoved
   getActivePlayer: (game: BackgammonGame) => BackgammonPlayerActive
   getInactivePlayer: (game: BackgammonGame) => BackgammonPlayerInactive
   getPlayersForColor: (
