@@ -4,12 +4,14 @@ import { BackgammonCube } from './cube'
 import { IntegerRange } from './generics'
 import {
   BackgammonPlay,
+  BackgammonPlayDoubled,
   BackgammonPlayMoving,
   BackgammonPlayRolled,
 } from './play'
 import {
   BackgammonPlayer,
   BackgammonPlayerActive,
+  BackgammonPlayerDoubled,
   BackgammonPlayerInactive,
   BackgammonPlayerMoving,
   BackgammonPlayerRolled,
@@ -18,6 +20,30 @@ import {
   BackgammonPlayerWinner,
   BackgammonPlayers,
 } from './player'
+
+// --------------------------------------------------------------------------------------
+// DESIGN NOTE: Game State Modeling - "playing"/"played" vs. "moving"/"moved"
+//
+// The current model uses "moving" and "moved" states, which are primarily driven by UI events
+// (e.g., when a user clicks or drags a checker). However, in the rules of backgammon, a player's
+// turn (a "play") consists of a sequence of moves (2 or 4, depending on the dice roll), and the
+// turn is only complete when the player has finished all possible/legal moves and explicitly
+// indicates they are done (e.g., by clicking a "Done" button).
+//
+// A more accurate and robust model would use "playing" and "played" states:
+//   - "playing": The player is in the process of making their play (their turn), which may consist
+//     of multiple moves. The player remains in this state until they indicate completion.
+//   - "played": The player has finished their play (clicked "Done"), and the game can validate
+//     the play and transition to the next state (e.g., next player's turn, or game end).
+//
+// This approach:
+//   - Aligns the state machine with the actual rules and flow of backgammon, not just UI actions.
+//   - Makes it easier to reason about game logic, validation, and undo/redo functionality.
+//   - Separates UI-driven pseudo-states from rule-driven game states, leading to a cleaner design.
+//
+// For now, the code retains "moving" and "moved" for compatibility, but a future refactor should
+// implement "playing" and "played" as described above.
+// --------------------------------------------------------------------------------------
 
 export type Latitude = 'north' | 'south'
 export type Longitude = 'east' | 'west'
@@ -33,6 +59,8 @@ export type BackgammonGameStateKind =
   | 'rolled-for-start'
   | 'rolling'
   | 'rolled'
+  | 'doubling'
+  | 'doubled'
   | 'moving'
   | 'moved'
   | 'completed'
@@ -80,6 +108,22 @@ export type BackgammonGameRolled = Game & {
   activePlay: BackgammonPlayRolled
 }
 
+export type BackgammonGameDoubling = Game & {
+  stateKind: 'doubling'
+  activeColor: BackgammonColor
+  activePlay: BackgammonPlayDoubled
+  activePlayer: BackgammonPlayerDoubled
+  inactivePlayer: BackgammonPlayerInactive
+}
+
+export type BackgammonGameDoubled = Game & {
+  stateKind: 'doubled'
+  activeColor: BackgammonColor
+  activePlay: BackgammonPlayDoubled
+  activePlayer: BackgammonPlayerDoubled
+  inactivePlayer: BackgammonPlayerInactive
+}
+
 export type BackgammonGameMoving = Game & {
   stateKind: 'moving'
   activeColor: BackgammonColor
@@ -106,6 +150,7 @@ export type BackgammonGame =
   | BackgammonGameRolledForStart
   | BackgammonGameRolling
   | BackgammonGameRolled
+  | BackgammonGameDoubled
   | BackgammonGameMoving
   | BackgammonGameMoved
   | BackgammonGameCompleted
@@ -143,6 +188,19 @@ export interface GameClass {
     game: BackgammonGameRollingForStart
   ) => BackgammonGameRolledForStart
   roll: (game: BackgammonGameRolledForStart) => BackgammonGameRolled
+  /**
+   * This is a pseudo state transition. The user transitions into a "moving" state when they
+   * click on a checker (rather than the cube). But the instant they click the
+   * checker they are in a moved state.
+   */
+  toMoving: (
+    game: BackgammonGameRolled | BackgammonGameDoubled
+  ) => BackgammonGameMoving
+  /**
+   * This is another pseudo state transition. Argument for this is weaker.
+   */
+  toDoubling: (game: BackgammonGameRolled) => BackgammonGameDoubling
+  double: (game: BackgammonGameDoubling) => BackgammonGameDoubled
   move: (
     game: BackgammonGameMoving | BackgammonGameRolled,
     origin: BackgammonMoveOrigin
