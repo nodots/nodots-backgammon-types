@@ -1,6 +1,6 @@
 import { BackgammonChecker } from './checker';
 import { BackgammonBoard } from './board';
-import { BackgammonCheckercontainerImport } from './import';
+import { BackgammonCheckerContainerImport } from './import';
 import { BackgammonMoveDirection } from './game';
 import { IntegerRange } from './generics';
 type BarPosition = 'bar';
@@ -9,22 +9,22 @@ interface BackgammonPointPosition {
     clockwise: BackgammonPointValue;
     counterclockwise: BackgammonPointValue;
 }
-export type BackgammonCheckercontainerPosition = BackgammonPointPosition | BarPosition | OffPosition;
+export type BackgammonCheckerContainerPosition = BackgammonPointPosition | BarPosition | OffPosition;
 type CheckerContainerKind = 'point' | 'bar' | 'off';
-export type BackgammonCheckercontainer = {
+export type BackgammonCheckerContainer = {
     id: string;
     kind: CheckerContainerKind;
-    position: BackgammonCheckercontainerPosition;
+    position: BackgammonCheckerContainerPosition;
     checkers: BackgammonChecker[];
 };
-export interface BackgammonPoint extends BackgammonCheckercontainer {
+export interface BackgammonPoint extends BackgammonCheckerContainer {
     kind: 'point';
     position: {
         clockwise: BackgammonPointValue;
         counterclockwise: BackgammonPointValue;
     };
 }
-export interface BackgammonBar extends BackgammonCheckercontainer {
+export interface BackgammonBar extends BackgammonCheckerContainer {
     kind: 'bar';
     direction: BackgammonMoveDirection;
     position: BarPosition;
@@ -32,7 +32,7 @@ export interface BackgammonBar extends BackgammonCheckercontainer {
 export type BackgammonBarContainer = {
     [direction in BackgammonMoveDirection]: BackgammonBar;
 };
-export interface BackgammonOff extends BackgammonCheckercontainer {
+export interface BackgammonOff extends BackgammonCheckerContainer {
     kind: 'off';
     direction: BackgammonMoveDirection;
     position: OffPosition;
@@ -70,13 +70,13 @@ export type BackgammonPoints = [
 export type BackgammonMoveOrigin = BackgammonPoint | BackgammonBar;
 export type BackgammonMoveDestination = BackgammonPoint | BackgammonOff;
 export interface CheckercontainerClass {
-    getCheckercontainers: (board: BackgammonBoard) => BackgammonCheckercontainer[];
-    getCheckercontainer: (board: BackgammonBoard, id: string) => BackgammonCheckercontainer;
-    buildBar: (boardImport: BackgammonCheckercontainerImport[]) => {
+    getCheckercontainers: (board: BackgammonBoard) => BackgammonCheckerContainer[];
+    getCheckercontainer: (board: BackgammonBoard, id: string) => BackgammonCheckerContainer;
+    buildBar: (boardImport: BackgammonCheckerContainerImport[]) => {
         clockwise: BackgammonBar;
         counterclockwise: BackgammonBar;
     };
-    buildOff: (boardImport: BackgammonCheckercontainerImport[]) => {
+    buildOff: (boardImport: BackgammonCheckerContainerImport[]) => {
         clockwise: BackgammonOff;
         counterclockwise: BackgammonOff;
     };

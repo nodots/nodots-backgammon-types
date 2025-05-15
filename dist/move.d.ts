@@ -1,5 +1,5 @@
 import { BackgammonBoard } from '.';
-import { BackgammonCheckercontainer, BackgammonMoveDestination, BackgammonMoveOrigin, BackgammonPoint } from './checkercontainer';
+import { BackgammonCheckerContainer, BackgammonMoveDestination, BackgammonMoveOrigin, BackgammonPoint } from './checkercontainer';
 import { BackgammonDieValue } from './dice';
 import { BackgammonMoveDirection } from './game';
 import { BackgammonPlayer, BackgammonPlayerMoving, BackgammonPlayerRolled } from './player';
@@ -77,8 +77,8 @@ export interface MoveClass {
     dieValue: BackgammonDieValue;
     stateKind: BackgammonMoveStateKind;
     moveKind: BackgammonMoveKind | undefined;
-    origin: BackgammonCheckercontainer | undefined;
-    destination: BackgammonCheckercontainer | undefined;
+    origin: BackgammonCheckerContainer | undefined;
+    destination: BackgammonCheckerContainer | undefined;
     initialize: (props: MoveProps) => BackgammonMove;
     isPointOpen: (point: BackgammonPoint, player: BackgammonPlayerMoving | BackgammonPlayerRolled) => boolean;
     move: (board: BackgammonBoard, move: BackgammonMoveReady, isDryRun?: boolean) => BackgammonMoveResult | BackgammonMoveDryRunResult;

@@ -1,8 +1,8 @@
 import { BackgammonChecker } from './checker';
-import { BackgammonBar, BackgammonOff, BackgammonPoints, BackgammonCheckercontainer, BackgammonPoint } from './checkercontainer';
+import { BackgammonBar, BackgammonOff, BackgammonPoints, BackgammonCheckerContainer, BackgammonPoint } from './checkercontainer';
 import { BackgammonDieValue } from './dice';
 import { BackgammonColor, BackgammonGame, BackgammonMoveDirection } from './game';
-import { BackgammonCheckercontainerImport } from './import';
+import { BackgammonCheckerContainerImport } from './import';
 import { BackgammonMoveSkeleton } from './move';
 import { BackgammonPlayer } from './player';
 export interface BackgammonBoard {
@@ -39,21 +39,21 @@ export interface BoardClass {
         clockwise: BackgammonOff;
         counterclockwise: BackgammonOff;
     };
-    initialize: (boardImport?: BackgammonCheckercontainerImport[]) => BackgammonBoard;
+    initialize: (boardImport?: BackgammonCheckerContainerImport[]) => BackgammonBoard;
     moveChecker: (board: BackgammonBoard, origin: BackgammonPoint | BackgammonBar, destination: BackgammonPoint | BackgammonOff, direction: BackgammonMoveDirection) => BackgammonBoard;
     getCheckers: (board: BackgammonBoard) => BackgammonChecker[];
     getCheckersForColor: (board: BackgammonBoard, color: BackgammonColor) => BackgammonChecker[];
     getBackgammonPoints: (board: BackgammonBoard) => BackgammonPoint[];
     getBars: (board: BackgammonBoard) => BackgammonBar[];
     getOffs: (board: BackgammonBoard) => BackgammonOff[];
-    getCheckercontainers: (board: BackgammonBoard) => BackgammonCheckercontainer[];
-    getCheckercontainer: (board: BackgammonBoard, id: string) => BackgammonCheckercontainer;
+    getCheckercontainers: (board: BackgammonBoard) => BackgammonCheckerContainer[];
+    getCheckercontainer: (board: BackgammonBoard, id: string) => BackgammonCheckerContainer;
     getPossibleMoves: (board: BackgammonBoard, player: BackgammonPlayer, dieValue: BackgammonDieValue) => BackgammonMoveSkeleton[];
     getPipCounts: (game: BackgammonGame) => {
         black: number;
         white: number;
     };
-    buildBoard: (boardImport: BackgammonCheckercontainerImport[]) => BackgammonBoard;
+    buildBoard: (boardImport: BackgammonCheckerContainerImport[]) => BackgammonBoard;
     generateRandomBoard: () => BackgammonBoard;
     getAsciiBoard: (board: BackgammonBoard) => string;
     displayAsciiBoard: (board: BackgammonBoard | undefined) => void;

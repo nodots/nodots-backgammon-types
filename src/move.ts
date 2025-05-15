@@ -1,6 +1,6 @@
 import { BackgammonBoard } from '.'
 import {
-  BackgammonCheckercontainer,
+  BackgammonCheckerContainer,
   BackgammonMoveDestination,
   BackgammonMoveOrigin,
   BackgammonPoint,
@@ -120,8 +120,8 @@ export interface MoveClass {
   dieValue: BackgammonDieValue
   stateKind: BackgammonMoveStateKind
   moveKind: BackgammonMoveKind | undefined
-  origin: BackgammonCheckercontainer | undefined
-  destination: BackgammonCheckercontainer | undefined
+  origin: BackgammonCheckerContainer | undefined
+  destination: BackgammonCheckerContainer | undefined
 
   initialize: (props: MoveProps) => BackgammonMove
   isPointOpen: (

@@ -1,7 +1,7 @@
 import { BackgammonColor } from '.';
-import { BackgammonCheckercontainerPosition } from './checkercontainer';
-export interface BackgammonCheckercontainerImport {
-    position: BackgammonCheckercontainerPosition;
+import { BackgammonCheckerContainerPosition } from './checkercontainer';
+export interface BackgammonCheckerContainerImport {
+    position: BackgammonCheckerContainerPosition;
     direction?: 'clockwise' | 'counterclockwise';
     checkers: {
         qty: number;
@@ -9,6 +9,6 @@ export interface BackgammonCheckercontainerImport {
     };
 }
 export interface BackgammonBoardImports {
-    clockwise: BackgammonCheckercontainerImport[];
-    counterclockwise: BackgammonCheckercontainerImport[];
+    clockwise: BackgammonCheckerContainerImport[];
+    counterclockwise: BackgammonCheckerContainerImport[];
 }
