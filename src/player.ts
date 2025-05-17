@@ -29,6 +29,7 @@ interface BasePlayer {
   direction: BackgammonMoveDirection
   dice: BackgammonDice
   pipCount: BackgammonPips
+  isRobot: boolean
 }
 
 interface Player extends BasePlayer {

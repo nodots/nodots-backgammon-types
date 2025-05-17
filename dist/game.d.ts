@@ -2,8 +2,8 @@ import { BackgammonBoard } from './board';
 import { BackgammonMoveOrigin } from './checkercontainer';
 import { BackgammonCube } from './cube';
 import { IntegerRange } from './generics';
-import { BackgammonPlay, BackgammonPlayMoving, BackgammonPlayRolled } from './play';
-import { BackgammonPlayer, BackgammonPlayerActive, BackgammonPlayerInactive, BackgammonPlayerMoving, BackgammonPlayerRolled, BackgammonPlayerRolledForStart, BackgammonPlayerRolling, BackgammonPlayerWinner, BackgammonPlayers } from './player';
+import { BackgammonPlay, BackgammonPlayDoubled, BackgammonPlayMoving, BackgammonPlayRolled } from './play';
+import { BackgammonPlayer, BackgammonPlayerActive, BackgammonPlayerDoubled, BackgammonPlayerInactive, BackgammonPlayerMoving, BackgammonPlayerRolled, BackgammonPlayerRolledForStart, BackgammonPlayerRolling, BackgammonPlayerWinner, BackgammonPlayers } from './player';
 export type Latitude = 'north' | 'south';
 export type Longitude = 'east' | 'west';
 export type BackgammonColor = 'black' | 'white';
@@ -11,7 +11,7 @@ export type BackgammonMoveDirection = 'clockwise' | 'counterclockwise';
 export type BackgammonPips = IntegerRange<1, 167>;
 export declare const MAX_PIP_COUNT = 167;
 export declare const CHECKERS_PER_PLAYER = 15;
-export type BackgammonGameStateKind = 'rolling-for-start' | 'rolled-for-start' | 'rolling' | 'rolled' | 'moving' | 'moved' | 'completed';
+export type BackgammonGameStateKind = 'rolling-for-start' | 'rolled-for-start' | 'rolling' | 'rolled' | 'doubling' | 'doubled' | 'moving' | 'moved' | 'completed';
 interface BaseGame {
     id: string;
     players: BackgammonPlayers;
@@ -48,6 +48,20 @@ export type BackgammonGameRolled = Game & {
     inactivePlayer: BackgammonPlayerInactive;
     activePlay: BackgammonPlayRolled;
 };
+export type BackgammonGameDoubling = Game & {
+    stateKind: 'doubling';
+    activeColor: BackgammonColor;
+    activePlay: BackgammonPlayDoubled;
+    activePlayer: BackgammonPlayerDoubled;
+    inactivePlayer: BackgammonPlayerInactive;
+};
+export type BackgammonGameDoubled = Game & {
+    stateKind: 'doubled';
+    activeColor: BackgammonColor;
+    activePlay: BackgammonPlayDoubled;
+    activePlayer: BackgammonPlayerDoubled;
+    inactivePlayer: BackgammonPlayerInactive;
+};
 export type BackgammonGameMoving = Game & {
     stateKind: 'moving';
     activeColor: BackgammonColor;
@@ -66,7 +80,7 @@ export type BackgammonGameCompleted = Game & {
     stateKind: 'completed';
     winner: BackgammonPlayerWinner;
 };
-export type BackgammonGame = BackgammonGameRollingForStart | BackgammonGameRolledForStart | BackgammonGameRolling | BackgammonGameRolled | BackgammonGameMoving | BackgammonGameMoved | BackgammonGameCompleted;
+export type BackgammonGame = BackgammonGameRollingForStart | BackgammonGameRolledForStart | BackgammonGameRolling | BackgammonGameRolled | BackgammonGameDoubled | BackgammonGameMoving | BackgammonGameMoved | BackgammonGameCompleted;
 export interface GameProps {
     players: BackgammonPlayers;
     board?: BackgammonBoard;
@@ -85,6 +99,17 @@ export interface GameClass {
     initialize: (players: BackgammonPlayers, id?: string, stateKind?: BackgammonGameStateKind, board?: BackgammonBoard, cube?: BackgammonCube, activePlay?: BackgammonPlay, activeColor?: BackgammonColor, activePlayer?: BackgammonPlayerActive, inactivePlayer?: BackgammonPlayerInactive, origin?: BackgammonMoveOrigin) => BackgammonGame;
     rollForStart: (game: BackgammonGameRollingForStart) => BackgammonGameRolledForStart;
     roll: (game: BackgammonGameRolledForStart) => BackgammonGameRolled;
+    /**
+     * This is a pseudo state transition. The user transitions into a "moving" state when they
+     * click on a checker (rather than the cube). But the instant they click the
+     * checker they are in a moved state.
+     */
+    toMoving: (game: BackgammonGameRolled | BackgammonGameDoubled) => BackgammonGameMoving;
+    /**
+     * This is another pseudo state transition. Argument for this is weaker.
+     */
+    toDoubling: (game: BackgammonGameRolled) => BackgammonGameDoubling;
+    double: (game: BackgammonGameDoubling) => BackgammonGameDoubled;
     move: (game: BackgammonGameMoving | BackgammonGameRolled, origin: BackgammonMoveOrigin) => BackgammonGameMoved;
     getActivePlayer: (game: BackgammonGame) => BackgammonPlayerActive;
     getInactivePlayer: (game: BackgammonGame) => BackgammonPlayerInactive;

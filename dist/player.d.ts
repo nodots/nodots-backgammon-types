@@ -6,7 +6,7 @@ import { BackgammonBoard } from './board';
 import { BackgammonPlayMoving } from './play';
 import { BackgammonMoveResult } from './move';
 import { BackgammonMoveOrigin, BackgammonPoint } from './checkercontainer';
-export type BackgammonPlayerStateKind = 'inactive' | 'rolling-for-start' | 'rolled-for-start' | 'rolling' | 'rolled' | 'moving' | 'moved' | 'winner';
+export type BackgammonPlayerStateKind = 'inactive' | 'rolling-for-start' | 'rolled-for-start' | 'rolling' | 'rolled' | 'doubled' | 'moving' | 'moved' | 'winner';
 interface BasePlayer {
     id?: string;
     color: BackgammonColor;
@@ -45,6 +45,11 @@ export type BackgammonPlayerRolled = Player & {
     stateKind: 'rolled';
     dice: BackgammonDiceRolled;
 };
+export type BackgammonPlayerDoubled = Player & {
+    id: string;
+    stateKind: 'doubled';
+    dice: BackgammonDiceRolled;
+};
 export type BackgammonPlayerMoving = Player & {
     id: string;
     stateKind: 'moving';
@@ -60,8 +65,8 @@ export type BackgammonPlayerWinner = Player & {
     stateKind: 'winner';
     dice: BackgammonDiceRolled;
 };
-export type BackgammonPlayer = BackgammonPlayerInactive | BackgammonPlayerRollingForStart | BackgammonPlayerRolledForStart | BackgammonPlayerRolling | BackgammonPlayerRolled | BackgammonPlayerMoving | BackgammonPlayerMoved | BackgammonPlayerWinner;
-export type BackgammonPlayerActive = BackgammonPlayerRollingForStart | BackgammonPlayerRolledForStart | BackgammonPlayerRolling | BackgammonPlayerRolled | BackgammonPlayerMoving | BackgammonPlayerMoved;
+export type BackgammonPlayer = BackgammonPlayerInactive | BackgammonPlayerRollingForStart | BackgammonPlayerRolledForStart | BackgammonPlayerRolling | BackgammonPlayerRolled | BackgammonPlayerDoubled | BackgammonPlayerMoving | BackgammonPlayerMoved | BackgammonPlayerWinner;
+export type BackgammonPlayerActive = BackgammonPlayerRollingForStart | BackgammonPlayerRolledForStart | BackgammonPlayerRolling | BackgammonPlayerRolled | BackgammonPlayerDoubled | BackgammonPlayerMoving | BackgammonPlayerMoved;
 export type BackgammonPlayers = [BackgammonPlayer, BackgammonPlayer];
 export type BackgammonPlayerCheckers<T extends BackgammonChecker = BackgammonChecker> = [T, T, T, T, T, T, T, T, T, T, T, T, T, T, T];
 export interface PlayerClass {
@@ -71,8 +76,11 @@ export interface PlayerClass {
     pipCount: number;
     initialize: (color: BackgammonColor, direction: BackgammonMoveDirection, dice?: BackgammonDice, id?: string, stateKind?: BackgammonPlayerStateKind) => BackgammonPlayer;
     roll: (player: BackgammonPlayerRolling) => BackgammonPlayerRolled;
+    double: (player: BackgammonPlayerRolled) => BackgammonPlayerDoubled;
     move: (board: BackgammonBoard, play: BackgammonPlayMoving, origin: BackgammonMoveOrigin) => BackgammonMoveResult;
     getHomeBoard: (board: BackgammonBoard, player: BackgammonPlayer) => BackgammonPoint[];
     getOpponentBoard: (board: BackgammonBoard, player: BackgammonPlayer) => BackgammonPoint[];
+    toMoving: (player: BackgammonPlayerRolled | BackgammonPlayerDoubled) => BackgammonPlayerMoving;
+    toDoubling: (player: BackgammonPlayerRolled) => BackgammonPlayerDoubled;
 }
 export {};

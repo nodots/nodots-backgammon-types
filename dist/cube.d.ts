@@ -1,11 +1,12 @@
 import { BackgammonPlayer, BackgammonPlayers } from './player';
 export type BackgammonCubeValue = undefined | 2 | 4 | 8 | 16 | 32 | 64;
 export declare const BackgammonCubeValues: BackgammonCubeValue[];
-export type BackgammonCubeStateKind = 'initialized' | 'doubled' | 'maxxed';
+export type BackgammonCubeStateKind = 'initialized' | 'doubled' | 'maxxed' | 'offered';
 interface BaseCube {
     id: string;
     owner: BackgammonPlayer | undefined;
-    value: BackgammonPlayer | undefined;
+    value: BackgammonCubeValue | undefined;
+    offeredBy?: BackgammonPlayer | undefined;
 }
 interface Cube extends BaseCube {
     stateKind: BackgammonCubeStateKind;
@@ -14,18 +15,27 @@ export type BackgammonCubeInitialized = Cube & {
     stateKind: 'initialized';
     owner: undefined;
     value: undefined;
+    offeredBy?: undefined;
 };
 export type BackgammonCubeDoubled = Cube & {
     stateKind: 'doubled';
     owner: BackgammonPlayer;
     value: BackgammonCubeValue;
+    offeredBy?: undefined;
 };
 export type BackgammonCubeMaxxed = Cube & {
     stateKind: 'maxxed';
     owner: undefined;
     value: 64;
+    offeredBy?: undefined;
 };
-export type BackgammonCube = BackgammonCubeInitialized | BackgammonCubeDoubled | BackgammonCubeMaxxed;
+export type BackgammonCubeOffered = Cube & {
+    stateKind: 'offered';
+    owner: BackgammonPlayer;
+    value: BackgammonCubeValue;
+    offeredBy: BackgammonPlayer;
+};
+export type BackgammonCube = BackgammonCubeInitialized | BackgammonCubeDoubled | BackgammonCubeMaxxed | BackgammonCubeOffered;
 export interface CubeProps {
     id?: string;
     stateKind?: BackgammonCubeStateKind;
