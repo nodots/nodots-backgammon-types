@@ -4,7 +4,7 @@ import { BackgammonPips } from './pip';
 import { BackgammonMoveDirection, BackgammonColor } from './game';
 import { BackgammonBoard } from './board';
 import { BackgammonPlayMoving } from './play';
-import { BackgammonMoveResult } from './move';
+import { BackgammonMoveReady, BackgammonMoveResult } from './move';
 import { BackgammonMoveOrigin, BackgammonPoint } from './checkercontainer';
 export type BackgammonPlayerStateKind = 'inactive' | 'rolling-for-start' | 'rolled-for-start' | 'rolling' | 'rolled' | 'doubled' | 'moving' | 'moved' | 'winner';
 interface BasePlayer {
@@ -13,6 +13,7 @@ interface BasePlayer {
     direction: BackgammonMoveDirection;
     dice: BackgammonDice;
     pipCount: BackgammonPips;
+    isRobot: boolean;
 }
 interface Player extends BasePlayer {
     stateKind: BackgammonPlayerStateKind;
@@ -80,6 +81,7 @@ export interface PlayerClass {
     move: (board: BackgammonBoard, play: BackgammonPlayMoving, origin: BackgammonMoveOrigin) => BackgammonMoveResult;
     getHomeBoard: (board: BackgammonBoard, player: BackgammonPlayer) => BackgammonPoint[];
     getOpponentBoard: (board: BackgammonBoard, player: BackgammonPlayer) => BackgammonPoint[];
+    getBestMove: (possibleMoves: BackgammonMoveReady[]) => BackgammonMoveReady;
     toMoving: (player: BackgammonPlayerRolled | BackgammonPlayerDoubled) => BackgammonPlayerMoving;
     toDoubling: (player: BackgammonPlayerRolled) => BackgammonPlayerDoubled;
 }
