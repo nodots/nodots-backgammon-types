@@ -46,6 +46,10 @@ Import the types you need in your TypeScript files:
 import { Game, Move, Player, Board } from '@nodots-llc/backgammon-types'
 ```
 
+## Model
+
+![Source Diagram](src_diagram.png)
+
 ## Development
 
 ### Prerequisites

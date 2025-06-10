@@ -9,7 +9,12 @@ import { BackgammonPips } from './pip'
 import { BackgammonMoveDirection, BackgammonColor } from './game'
 import { BackgammonBoard } from './board'
 import { BackgammonPlayMoving } from './play'
-import { BackgammonMoveCompletedNoMove, BackgammonMoveConfirmedNoMove, BackgammonMoveReady, BackgammonMoveResult } from './move'
+import {
+  BackgammonMoveCompletedNoMove,
+  BackgammonMoveConfirmedNoMove,
+  BackgammonMoveReady,
+  BackgammonMoveResult,
+} from './move'
 import { BackgammonMoveOrigin, BackgammonPoint } from './checkercontainer'
 
 export type BackgammonPlayerStateKind =
@@ -25,6 +30,7 @@ export type BackgammonPlayerStateKind =
 
 interface BasePlayer {
   id?: string
+  userId: string
   color: BackgammonColor
   direction: BackgammonMoveDirection
   dice: BackgammonDice
@@ -148,9 +154,7 @@ export interface PlayerClass {
     board: BackgammonBoard,
     player: BackgammonPlayer
   ) => BackgammonPoint[]
-  getBestMove: (
-    possibleMoves: BackgammonMoveReady[]
-  ) => BackgammonMoveReady
+  getBestMove: (possibleMoves: BackgammonMoveReady[]) => BackgammonMoveReady
   // These methods are added to mirror the GameClass interface, making player state transitions
   // (to 'moving' and 'doubling') explicit and keeping the player model consistent with the game model.
   toMoving: (

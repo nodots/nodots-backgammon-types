@@ -2,6 +2,7 @@ import { BackgammonBoard } from './board'
 import { BackgammonMoveOrigin } from './checkercontainer'
 import { BackgammonCube } from './cube'
 import { IntegerRange } from './generics'
+import { BackgammonPips } from './pip'
 import {
   BackgammonPlay,
   BackgammonPlayDoubled,
@@ -49,9 +50,7 @@ export type Latitude = 'north' | 'south'
 export type Longitude = 'east' | 'west'
 export type BackgammonColor = 'black' | 'white'
 export type BackgammonMoveDirection = 'clockwise' | 'counterclockwise'
-export type BackgammonPips = IntegerRange<1, 167>
 
-export const MAX_PIP_COUNT = 167
 export const CHECKERS_PER_PLAYER = 15
 
 export type BackgammonGameStateKind =
