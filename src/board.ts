@@ -1,10 +1,10 @@
 import { BackgammonChecker } from './checker'
 import {
   BackgammonBar,
-  BackgammonOff,
-  BackgammonPoints,
   BackgammonCheckerContainer,
+  BackgammonOff,
   BackgammonPoint,
+  BackgammonPoints,
 } from './checkercontainer'
 import { BackgammonDieValue } from './dice'
 import {
@@ -18,6 +18,7 @@ import { BackgammonPlayer } from './player'
 
 export interface BackgammonBoard {
   id: string
+  gnuPositionId: string
   BackgammonPoints: BackgammonPoints
   bar: {
     clockwise: BackgammonBar

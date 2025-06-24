@@ -9,6 +9,7 @@ import { BackgammonMoveOrigin, BackgammonPoint } from './checkercontainer';
 export type BackgammonPlayerStateKind = 'inactive' | 'rolling-for-start' | 'rolled-for-start' | 'rolling' | 'rolled' | 'doubled' | 'moving' | 'moved' | 'winner';
 interface BasePlayer {
     id?: string;
+    userId: string;
     color: BackgammonColor;
     direction: BackgammonMoveDirection;
     dice: BackgammonDice;

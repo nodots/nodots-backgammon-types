@@ -17,6 +17,7 @@ export interface BackgammonMoveBase {
     dieValue: BackgammonDieValue;
     stateKind: BackgammonMoveStateKind;
     moveKind: BackgammonMoveKind;
+    possibleMoves: BackgammonMoveSkeleton[];
 }
 export interface BackgammonMoveReady extends BackgammonMoveBase {
     stateKind: 'ready';

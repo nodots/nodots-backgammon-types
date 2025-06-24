@@ -1,15 +1,12 @@
 import { BackgammonBoard } from './board';
 import { BackgammonMoveOrigin } from './checkercontainer';
 import { BackgammonCube } from './cube';
-import { IntegerRange } from './generics';
 import { BackgammonPlay, BackgammonPlayDoubled, BackgammonPlayMoving, BackgammonPlayRolled } from './play';
 import { BackgammonPlayer, BackgammonPlayerActive, BackgammonPlayerDoubled, BackgammonPlayerInactive, BackgammonPlayerMoving, BackgammonPlayerRolled, BackgammonPlayerRolledForStart, BackgammonPlayerRolling, BackgammonPlayerWinner, BackgammonPlayers } from './player';
 export type Latitude = 'north' | 'south';
 export type Longitude = 'east' | 'west';
 export type BackgammonColor = 'black' | 'white';
 export type BackgammonMoveDirection = 'clockwise' | 'counterclockwise';
-export type BackgammonPips = IntegerRange<1, 167>;
-export declare const MAX_PIP_COUNT = 167;
 export declare const CHECKERS_PER_PLAYER = 15;
 export type BackgammonGameStateKind = 'rolling-for-start' | 'rolled-for-start' | 'rolling' | 'rolled' | 'doubling' | 'doubled' | 'moving' | 'moved' | 'completed';
 interface BaseGame {

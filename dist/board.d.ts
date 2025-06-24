@@ -1,5 +1,5 @@
 import { BackgammonChecker } from './checker';
-import { BackgammonBar, BackgammonOff, BackgammonPoints, BackgammonCheckerContainer, BackgammonPoint } from './checkercontainer';
+import { BackgammonBar, BackgammonCheckerContainer, BackgammonOff, BackgammonPoint, BackgammonPoints } from './checkercontainer';
 import { BackgammonDieValue } from './dice';
 import { BackgammonColor, BackgammonGame, BackgammonMoveDirection } from './game';
 import { BackgammonCheckerContainerImport } from './import';
@@ -7,6 +7,7 @@ import { BackgammonMoveSkeleton } from './move';
 import { BackgammonPlayer } from './player';
 export interface BackgammonBoard {
     id: string;
+    gnuPositionId: string;
     BackgammonPoints: BackgammonPoints;
     bar: {
         clockwise: BackgammonBar;
