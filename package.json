@@ -1,6 +1,6 @@
 {
   "name": "@nodots-llc/backgammon-types",
-  "version": "2.2.1",
+  "version": "2.3.0",
   "description": "Type definitions for nodots-backgammon",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
