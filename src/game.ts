@@ -1,8 +1,6 @@
 import { BackgammonBoard } from './board'
 import { BackgammonMoveOrigin } from './checkercontainer'
 import { BackgammonCube } from './cube'
-import { IntegerRange } from './generics'
-import { BackgammonPips } from './pip'
 import {
   BackgammonPlay,
   BackgammonPlayDoubled,
@@ -58,6 +56,7 @@ export type BackgammonGameStateKind =
   | 'rolled-for-start'
   | 'rolling'
   | 'rolled'
+  | 'preparing-move'
   | 'doubling'
   | 'doubled'
   | 'moving'
@@ -107,6 +106,14 @@ export type BackgammonGameRolled = Game & {
   activePlay: BackgammonPlayRolled
 }
 
+export type BackgammonGamePreparingMove = Game & {
+  stateKind: 'preparing-move'
+  activeColor: BackgammonColor
+  activePlayer: BackgammonPlayerRolled
+  inactivePlayer: BackgammonPlayerInactive
+  activePlay: BackgammonPlayRolled
+}
+
 export type BackgammonGameDoubling = Game & {
   stateKind: 'doubling'
   activeColor: BackgammonColor
@@ -149,6 +156,7 @@ export type BackgammonGame =
   | BackgammonGameRolledForStart
   | BackgammonGameRolling
   | BackgammonGameRolled
+  | BackgammonGamePreparingMove
   | BackgammonGameDoubled
   | BackgammonGameMoving
   | BackgammonGameMoved
@@ -188,12 +196,19 @@ export interface GameClass {
   ) => BackgammonGameRolledForStart
   roll: (game: BackgammonGameRolledForStart) => BackgammonGameRolled
   /**
+   * Transition from rolled to preparing-move state when a move is selected
+   */
+  prepareMove: (game: BackgammonGameRolled) => BackgammonGamePreparingMove
+  /**
    * This is a pseudo state transition. The user transitions into a "moving" state when they
    * click on a checker (rather than the cube). But the instant they click the
    * checker they are in a moved state.
    */
   toMoving: (
-    game: BackgammonGameRolled | BackgammonGameDoubled
+    game:
+      | BackgammonGameRolled
+      | BackgammonGamePreparingMove
+      | BackgammonGameDoubled
   ) => BackgammonGameMoving
   /**
    * This is another pseudo state transition. Argument for this is weaker.

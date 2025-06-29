@@ -8,7 +8,7 @@ export type Longitude = 'east' | 'west';
 export type BackgammonColor = 'black' | 'white';
 export type BackgammonMoveDirection = 'clockwise' | 'counterclockwise';
 export declare const CHECKERS_PER_PLAYER = 15;
-export type BackgammonGameStateKind = 'rolling-for-start' | 'rolled-for-start' | 'rolling' | 'rolled' | 'doubling' | 'doubled' | 'moving' | 'moved' | 'completed';
+export type BackgammonGameStateKind = 'rolling-for-start' | 'rolled-for-start' | 'rolling' | 'rolled' | 'preparing-move' | 'doubling' | 'doubled' | 'moving' | 'moved' | 'completed';
 interface BaseGame {
     id: string;
     players: BackgammonPlayers;
@@ -40,6 +40,13 @@ export type BackgammonGameRolling = Game & {
 };
 export type BackgammonGameRolled = Game & {
     stateKind: 'rolled';
+    activeColor: BackgammonColor;
+    activePlayer: BackgammonPlayerRolled;
+    inactivePlayer: BackgammonPlayerInactive;
+    activePlay: BackgammonPlayRolled;
+};
+export type BackgammonGamePreparingMove = Game & {
+    stateKind: 'preparing-move';
     activeColor: BackgammonColor;
     activePlayer: BackgammonPlayerRolled;
     inactivePlayer: BackgammonPlayerInactive;
@@ -77,7 +84,7 @@ export type BackgammonGameCompleted = Game & {
     stateKind: 'completed';
     winner: BackgammonPlayerWinner;
 };
-export type BackgammonGame = BackgammonGameRollingForStart | BackgammonGameRolledForStart | BackgammonGameRolling | BackgammonGameRolled | BackgammonGameDoubled | BackgammonGameMoving | BackgammonGameMoved | BackgammonGameCompleted;
+export type BackgammonGame = BackgammonGameRollingForStart | BackgammonGameRolledForStart | BackgammonGameRolling | BackgammonGameRolled | BackgammonGamePreparingMove | BackgammonGameDoubled | BackgammonGameMoving | BackgammonGameMoved | BackgammonGameCompleted;
 export interface GameProps {
     players: BackgammonPlayers;
     board?: BackgammonBoard;
@@ -97,11 +104,15 @@ export interface GameClass {
     rollForStart: (game: BackgammonGameRollingForStart) => BackgammonGameRolledForStart;
     roll: (game: BackgammonGameRolledForStart) => BackgammonGameRolled;
     /**
+     * Transition from rolled to preparing-move state when a move is selected
+     */
+    prepareMove: (game: BackgammonGameRolled) => BackgammonGamePreparingMove;
+    /**
      * This is a pseudo state transition. The user transitions into a "moving" state when they
      * click on a checker (rather than the cube). But the instant they click the
      * checker they are in a moved state.
      */
-    toMoving: (game: BackgammonGameRolled | BackgammonGameDoubled) => BackgammonGameMoving;
+    toMoving: (game: BackgammonGameRolled | BackgammonGamePreparingMove | BackgammonGameDoubled) => BackgammonGameMoving;
     /**
      * This is another pseudo state transition. Argument for this is weaker.
      */
