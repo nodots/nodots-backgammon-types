@@ -111,12 +111,16 @@ export interface GameClass {
      * This is a pseudo state transition. The user transitions into a "moving" state when they
      * click on a checker (rather than the cube). But the instant they click the
      * checker they are in a moved state.
+     * v3.1.0 BREAKING CHANGE: Now only accepts preparing-move or doubled states
+     * TODO v3.2.0: Remove any remaining backward compatibility shims for old state transitions
      */
-    toMoving: (game: BackgammonGameRolled | BackgammonGamePreparingMove | BackgammonGameDoubled) => BackgammonGameMoving;
+    toMoving: (game: BackgammonGamePreparingMove | BackgammonGameDoubled) => BackgammonGameMoving;
     /**
      * This is another pseudo state transition. Argument for this is weaker.
+     * v3.1.0 BREAKING CHANGE: Now only accepts preparing-move states
+     * TODO v3.2.0: Remove any remaining backward compatibility shims for old state transitions
      */
-    toDoubling: (game: BackgammonGameRolled) => BackgammonGameDoubling;
+    toDoubling: (game: BackgammonGamePreparingMove) => BackgammonGameDoubling;
     double: (game: BackgammonGameDoubling) => BackgammonGameDoubled;
     move: (game: BackgammonGameMoving | BackgammonGameRolled, origin: BackgammonMoveOrigin) => BackgammonGameMoved;
     getActivePlayer: (game: BackgammonGame) => BackgammonPlayerActive;
