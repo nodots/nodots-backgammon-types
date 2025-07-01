@@ -8,7 +8,7 @@ import { BackgammonPlayer } from './player';
 export interface BackgammonBoard {
     id: string;
     gnuPositionId: string;
-    BackgammonPoints: BackgammonPoints;
+    points: BackgammonPoints;
     bar: {
         clockwise: BackgammonBar;
         counterclockwise: BackgammonBar;
@@ -27,11 +27,11 @@ export type Quadrant = [
     BackgammonPoint
 ];
 export interface HomeBoard {
-    BackgammonPoints: Quadrant;
+    points: Quadrant;
 }
 export interface BoardClass {
     id: string;
-    BackgammonPoints: BackgammonPoints;
+    points: BackgammonPoints;
     bar: {
         clockwise: BackgammonBar;
         counterclockwise: BackgammonBar;
