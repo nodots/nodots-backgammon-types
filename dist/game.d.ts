@@ -14,11 +14,16 @@ interface BaseGame {
     players: BackgammonPlayers;
     board: BackgammonBoard;
     cube: BackgammonCube;
+    asciiBoard?: string;
     winner?: BackgammonPlayer;
     activeColor?: BackgammonColor;
     activePlay?: BackgammonPlay;
     activePlayer?: BackgammonPlayer;
     inactivePlayer?: BackgammonPlayer;
+    created_at: Date;
+    start_time?: Date;
+    last_update?: Date;
+    end_time?: Date;
 }
 interface Game extends BaseGame {
     stateKind: BackgammonGameStateKind;
