@@ -9,6 +9,45 @@ export type BackgammonColor = 'black' | 'white';
 export type BackgammonMoveDirection = 'clockwise' | 'counterclockwise';
 export declare const CHECKERS_PER_PLAYER = 15;
 export type BackgammonGameStateKind = 'rolling-for-start' | 'rolled-for-start' | 'rolling' | 'rolled' | 'preparing-move' | 'doubling' | 'doubled' | 'moving' | 'moved' | 'completed';
+export interface BackgammonGameMetadata {
+    title?: string;
+    description?: string;
+    tags?: string[];
+    isPublic?: boolean;
+    isRanked?: boolean;
+    tournamentId?: string;
+    roundNumber?: number;
+    matchNumber?: number;
+}
+export interface BackgammonGameStatistics {
+    totalMoves: number;
+    totalRolls: number;
+    totalDoubles: number;
+    averageMoveTime: number;
+    longestMoveTime: number;
+    shortestMoveTime: number;
+    pipCountHistory: Array<{
+        turn: number;
+        black: number;
+        white: number;
+    }>;
+    cubeHistory: Array<{
+        turn: number;
+        value: number;
+        offeredBy: BackgammonColor;
+        accepted: boolean;
+    }>;
+}
+export interface BackgammonGameTiming {
+    timeLimit?: number;
+    timePerMove?: number;
+    timeRemaining: {
+        black: number;
+        white: number;
+    };
+    lastMoveTime?: Date;
+    averageTimePerTurn: number;
+}
 interface BaseGame {
     id: string;
     players: BackgammonPlayers;
@@ -24,6 +63,26 @@ interface BaseGame {
     startTime?: Date;
     lastUpdate?: Date;
     endTime?: Date;
+    metadata?: BackgammonGameMetadata;
+    statistics?: BackgammonGameStatistics;
+    timing?: BackgammonGameTiming;
+    version: string;
+    rules: {
+        useCrawfordRule?: boolean;
+        useJacobyRule?: boolean;
+        useBeaverRule?: boolean;
+        useRaccoonRule?: boolean;
+        useMurphyRule?: boolean;
+        useHollandRule?: boolean;
+    };
+    settings: {
+        allowUndo?: boolean;
+        allowResign?: boolean;
+        allowDraw?: boolean;
+        autoPlay?: boolean;
+        showHints?: boolean;
+        showProbabilities?: boolean;
+    };
 }
 interface Game extends BaseGame {
     stateKind: BackgammonGameStateKind;
@@ -105,7 +164,41 @@ export interface GameClass {
     activePlay: BackgammonPlay;
     activePlayer: BackgammonPlayerActive;
     inactivePlayer: BackgammonPlayerInactive;
-    initialize: (players: BackgammonPlayers, id?: string, stateKind?: BackgammonGameStateKind, board?: BackgammonBoard, cube?: BackgammonCube, activePlay?: BackgammonPlay, activeColor?: BackgammonColor, activePlayer?: BackgammonPlayerActive, inactivePlayer?: BackgammonPlayerInactive, origin?: BackgammonMoveOrigin) => BackgammonGame;
+    metadata?: BackgammonGameMetadata;
+    statistics?: BackgammonGameStatistics;
+    timing?: BackgammonGameTiming;
+    version: string;
+    rules: {
+        useCrawfordRule?: boolean;
+        useJacobyRule?: boolean;
+        useBeaverRule?: boolean;
+        useRaccoonRule?: boolean;
+        useMurphyRule?: boolean;
+        useHollandRule?: boolean;
+    };
+    settings: {
+        allowUndo?: boolean;
+        allowResign?: boolean;
+        allowDraw?: boolean;
+        autoPlay?: boolean;
+        showHints?: boolean;
+        showProbabilities?: boolean;
+    };
+    initialize: (players: BackgammonPlayers, id?: string, stateKind?: BackgammonGameStateKind, board?: BackgammonBoard, cube?: BackgammonCube, activePlay?: BackgammonPlay, activeColor?: BackgammonColor, activePlayer?: BackgammonPlayerActive, inactivePlayer?: BackgammonPlayerInactive, origin?: BackgammonMoveOrigin, metadata?: BackgammonGameMetadata, statistics?: BackgammonGameStatistics, timing?: BackgammonGameTiming, version?: string, rules?: {
+        useCrawfordRule?: boolean;
+        useJacobyRule?: boolean;
+        useBeaverRule?: boolean;
+        useRaccoonRule?: boolean;
+        useMurphyRule?: boolean;
+        useHollandRule?: boolean;
+    }, settings?: {
+        allowUndo?: boolean;
+        allowResign?: boolean;
+        allowDraw?: boolean;
+        autoPlay?: boolean;
+        showHints?: boolean;
+        showProbabilities?: boolean;
+    }) => BackgammonGame;
     rollForStart: (game: BackgammonGameRollingForStart) => BackgammonGameRolledForStart;
     roll: (game: BackgammonGameRolledForStart) => BackgammonGameRolled;
     /**

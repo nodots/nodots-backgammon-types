@@ -50,6 +50,27 @@ import { Game, Move, Player, Board } from '@nodots-llc/backgammon-types'
 
 ![Source Diagram](src_diagram.png)
 
+## Changelog
+
+### Version 3.2.0
+
+**New Features:**
+
+- Added `BackgammonGameMetadata` interface for game metadata (title, description, tags, tournament info)
+- Added `BackgammonGameStatistics` interface for game statistics tracking (moves, rolls, timing, pip counts)
+- Added `BackgammonGameTiming` interface for time management and limits
+- Enhanced `BackgammonGame` interface with new optional attributes:
+  - `metadata?: BackgammonGameMetadata` - Game metadata and tournament information
+  - `statistics?: BackgammonGameStatistics` - Game statistics and history
+  - `timing?: BackgammonGameTiming` - Time management settings
+  - `version: string` - Game format version for compatibility
+  - `rules` - Backgammon rule variations (Crawford, Jacoby, Beaver, etc.)
+  - `settings` - Game settings (undo, resign, hints, etc.)
+
+**Breaking Changes:**
+
+- None - all new attributes are optional and backward compatible
+
 ## Development
 
 ### Prerequisites
