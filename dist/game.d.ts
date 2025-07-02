@@ -20,10 +20,10 @@ interface BaseGame {
     activePlay?: BackgammonPlay;
     activePlayer?: BackgammonPlayer;
     inactivePlayer?: BackgammonPlayer;
-    created_at: Date;
-    start_time?: Date;
-    last_update?: Date;
-    end_time?: Date;
+    createdAt: Date;
+    startTime?: Date;
+    lastUpdate?: Date;
+    endTime?: Date;
 }
 interface Game extends BaseGame {
     stateKind: BackgammonGameStateKind;
