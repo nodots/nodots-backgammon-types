@@ -1,21 +1,16 @@
+import { BackgammonBoard } from './board'
 import { BackgammonChecker } from './checker'
+import { BackgammonMoveOrigin, BackgammonPoint } from './checkercontainer'
 import {
   BackgammonDice,
   BackgammonDiceInactive,
-  BackgammonDiceRolling,
   BackgammonDiceRolled,
+  BackgammonDiceRolling,
 } from './dice'
+import { BackgammonColor, BackgammonMoveDirection } from './game'
+import { BackgammonMoveReady, BackgammonMoveResult } from './move'
 import { BackgammonPips } from './pip'
-import { BackgammonMoveDirection, BackgammonColor } from './game'
-import { BackgammonBoard } from './board'
 import { BackgammonPlayMoving } from './play'
-import {
-  BackgammonMoveCompletedNoMove,
-  BackgammonMoveConfirmedNoMove,
-  BackgammonMoveReady,
-  BackgammonMoveResult,
-} from './move'
-import { BackgammonMoveOrigin, BackgammonPoint } from './checkercontainer'
 
 export type BackgammonPlayerStateKind =
   | 'inactive'
