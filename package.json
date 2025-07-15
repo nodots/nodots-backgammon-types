@@ -9,7 +9,8 @@
     "build": "tsc",
     "prepare": "npm run build",
     "release": "npm run build && npm publish",
-    "publish:dry-run": "npm run build && npm publish --dry-run"
+    "publish:dry-run": "npm run build && npm publish --dry-run",
+    "test": "echo 'No tests defined for types package'"
   },
   "author": "Ken Riley <kenr@nodots.com>",
   "license": "MIT",

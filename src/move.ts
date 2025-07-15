@@ -25,6 +25,7 @@ export type BackgammonMoveKind =
   | 'reenter'
   | 'bear-off'
 
+// TODO: Do we need this? KR 2025-07-14
 export type BackgammonMoveSkeleton = {
   dieValue: BackgammonDieValue
   direction: BackgammonMoveDirection
@@ -115,6 +116,18 @@ export interface MoveProps {
   origin: BackgammonMoveOrigin
 }
 
+/**
+ * MoveClass defines the interface for a class that implements Backgammon move logic.
+ *
+ * This interface bridges the gap between static type definitions (such as BackgammonMove, BackgammonMoveReady, etc.)
+ * and the actual logic required to create, validate, and apply moves to a Backgammon board.
+ *
+ * By specifying the required methods and properties, MoveClass ensures that any implementing class
+ * can construct moves from type-safe props, check move validity, apply moves to a board, and confirm moves.
+ *
+ * This approach allows the type system to enforce correct usage of move-related operations,
+ * while enabling the implementation of move logic in a consistent and type-safe manner.
+ */
 export interface MoveClass {
   player: BackgammonPlayer
   id: string
