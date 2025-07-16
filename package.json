@@ -1,6 +1,6 @@
 {
   "name": "@nodots-llc/backgammon-types",
-  "version": "3.5.0",
+  "version": "3.6.0",
   "description": "Type definitions for nodots-backgammon",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -10,7 +10,8 @@
     "test": "jest",
     "prepare": "npm run build",
     "release": "npm run build && npm publish",
-    "publish:dry-run": "npm run build && npm publish --dry-run"
+    "publish:dry-run": "npm run build && npm publish --dry-run",
+    "test": "echo 'No tests defined for types package'"
   },
   "author": "Ken Riley <kenr@nodots.com>",
   "license": "MIT",
