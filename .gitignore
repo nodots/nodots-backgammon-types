@@ -16,15 +16,25 @@ lib/
 coverage/
 *.lcov
 
-# IDE
+# IDE files
 .vscode/
 .idea/
 *.swp
 *.swo
+*~
 
-# OS
+# OS files
 .DS_Store
 Thumbs.db
+
+# Environment files
+.env
+.env.test
+.env.local
+.env.development.local
+.env.test.local
+.env.production
+.env.production.local
 
 # Logs
 logs
@@ -56,9 +66,3 @@ pids
 
 # Yarn Integrity file
 .yarn-integrity
-
-# dotenv environment variables file
-.env
-.env.test
-.env.local
-.env.production 
