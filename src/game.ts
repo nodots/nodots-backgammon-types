@@ -126,6 +126,7 @@ interface BaseGame {
   metadata?: BackgammonGameMetadata
   statistics?: BackgammonGameStatistics
   timing?: BackgammonGameTiming
+  gnuPositionId?: string
   version: string // Game format version for compatibility
   rules: {
     useCrawfordRule?: boolean

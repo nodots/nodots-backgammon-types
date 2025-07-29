@@ -1,19 +1,14 @@
-import { BackgammonRoll } from './dice'
-import {
-  BackgammonMoves,
-  BackgammonMoveReady,
-  BackgammonMoveInProgress,
-  BackgammonMoveCompleted,
-} from './move'
+import { BackgammonBoard } from './board'
+import { BackgammonMoveOrigin } from './checkercontainer'
+import { BackgammonCube } from './cube'
+import { BackgammonDiceRolled } from './dice'
+import { BackgammonMoveCompleted, BackgammonMoves } from './move'
 import {
   BackgammonPlayer,
   BackgammonPlayerMoving,
   BackgammonPlayerRolled,
   BackgammonPlayerRolling,
 } from './player'
-import { BackgammonBoard } from './board'
-import { BackgammonCube } from './cube'
-import { BackgammonMoveOrigin } from './checkercontainer'
 
 export type BackgammonPlayResult = {
   board: BackgammonBoard
@@ -48,6 +43,7 @@ export type BackgammonPlayRolled = Play & {
   stateKind: 'rolled'
   player: BackgammonPlayerRolled
   moves: BackgammonMoves
+  dice: BackgammonDiceRolled
 }
 
 export type BackgammonPlayDoubled = Play & {
