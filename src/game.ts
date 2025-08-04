@@ -126,7 +126,7 @@ interface BaseGame {
   metadata?: BackgammonGameMetadata
   statistics?: BackgammonGameStatistics
   timing?: BackgammonGameTiming
-  gnuPositionId?: string
+  gnuPositionId: string
   version: string // Game format version for compatibility
   rules: {
     useCrawfordRule?: boolean
@@ -228,6 +228,7 @@ export type BackgammonGame =
   | BackgammonGameRolling
   | BackgammonGameRolled
   | BackgammonGamePreparingMove
+  | BackgammonGameDoubling
   | BackgammonGameDoubled
   | BackgammonGameMoving
   | BackgammonGameMoved
