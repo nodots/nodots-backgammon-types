@@ -139,9 +139,7 @@ export interface GameStateSnapshot {
   playerStates: PlayerStatesSnapshot
   
   // Performance optimization: pre-calculated values
-  pipCounts: {
-    [color in BackgammonColor]: number
-  }
+  pipCounts: Record<BackgammonColor, number>
   
   // GNU Backgammon compatibility
   gnuPositionId?: string
@@ -152,12 +150,8 @@ export interface BoardPositionSnapshot {
   points: {
     [position: string]: CheckerSnapshot[] // '1-24'
   }
-  bar: {
-    [color in BackgammonColor]: CheckerSnapshot[]
-  }
-  off: {
-    [color in BackgammonColor]: CheckerSnapshot[]
-  }
+  bar: Record<BackgammonColor, CheckerSnapshot[]>
+  off: Record<BackgammonColor, CheckerSnapshot[]>
 }
 
 export interface CheckerSnapshot {
@@ -166,7 +160,7 @@ export interface CheckerSnapshot {
   position: number | 'bar' | 'off'
 }
 
-export interface DiceStateSnapshot {
+export type DiceStateSnapshot = {
   [color in BackgammonColor]: {
     currentRoll?: [BackgammonDieValue, BackgammonDieValue]
     availableMoves: BackgammonDieValue[]
@@ -182,7 +176,7 @@ export interface CubeStateSnapshot {
   position: 'center' | BackgammonColor
 }
 
-export interface PlayerStatesSnapshot {
+export type PlayerStatesSnapshot = {
   [color in BackgammonColor]: {
     pipCount: number
     stateKind: string
@@ -237,7 +231,7 @@ export interface GameResult {
   finalCubeValue: number
 }
 
-export interface GamePlayerInfo {
+export type GamePlayerInfo = {
   [color in BackgammonColor]: {
     userId: string
     nickname?: string
@@ -252,9 +246,7 @@ export interface MatchInfo {
   matchId: string
   gameNumber: number
   matchLength: number
-  matchScore: {
-    [color in BackgammonColor]: number
-  }
+  matchScore: Record<BackgammonColor, number>
   isCrawford?: boolean
 }
 
@@ -275,9 +267,7 @@ export interface GameHistoryAnalysis {
   analyzedAt: Date
   version: string
   
-  playerAnalysis: {
-    [color in BackgammonColor]: PlayerAnalysis
-  }
+  playerAnalysis: Record<BackgammonColor, PlayerAnalysis>
   
   gameQuality: GameQualityMetrics
   criticalMoments: CriticalMoment[]
