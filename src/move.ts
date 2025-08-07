@@ -5,6 +5,7 @@ import {
   BackgammonMoveOrigin,
   BackgammonPoint,
 } from './checkercontainer'
+import { BackgammonChecker } from './checker'
 import { BackgammonDieValue } from './dice'
 import { BackgammonMoveDirection } from './game'
 import {
@@ -40,6 +41,16 @@ export interface BackgammonMoveBase {
   stateKind: BackgammonMoveStateKind
   moveKind: BackgammonMoveKind
   possibleMoves: BackgammonMoveSkeleton[]
+  moveHistory?: {
+    previousBoardState: string // gnuPositionId
+    hitCheckers?: BackgammonChecker[]
+    executionTimestamp: string
+    undoMetadata?: {
+      canUndo: boolean
+      undoChainIndex: number
+      originalMoveId: string
+    }
+  }
 }
 
 export interface BackgammonMoveReady extends BackgammonMoveBase {
