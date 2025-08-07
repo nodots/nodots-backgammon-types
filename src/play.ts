@@ -71,7 +71,8 @@ export type BackgammonPlay =
   | BackgammonPlayRolled
   | BackgammonPlayDoubled
   | BackgammonPlayMoving
-  | BackgammonPlayMoved
+  | BackgammonPlayMoved  
+  | BackgammonPlayConfirmed
   | BackgammonMoveCompleted
 
 export type BackgammonRollResults = {
