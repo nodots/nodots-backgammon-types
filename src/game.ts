@@ -111,13 +111,13 @@ interface BaseGame {
   players: BackgammonPlayers
   board: BackgammonBoard
   cube: BackgammonCube
+  createdAt: Date
   asciiBoard?: string
   winner?: BackgammonPlayer
   activeColor?: BackgammonColor
   activePlay?: BackgammonPlay
   activePlayer?: BackgammonPlayer
   inactivePlayer?: BackgammonPlayer
-  createdAt: Date
   startTime?: Date
   lastUpdate?: Date
   endTime?: Date
