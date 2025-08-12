@@ -6,7 +6,7 @@ export interface BackgammonChecker {
   id: string
   color: BackgammonColor
   checkercontainerId: string
-  highlight?: boolean
+  isMovable: boolean
 }
 
 export interface BackgammonCheckers {
