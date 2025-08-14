@@ -48,6 +48,9 @@ export type BackgammonPlayRolled = Play & {
 
 export type BackgammonPlayDoubled = Play & {
   stateKind: 'doubled'
+  player: BackgammonPlayerRolled
+  moves: BackgammonMoves
+  dice: BackgammonDiceRolled
 }
 
 export type BackgammonPlayMoving = Play & {
@@ -59,11 +62,13 @@ export type BackgammonPlayMoving = Play & {
 export type BackgammonPlayMoved = Play & {
   stateKind: 'moved'
   player: BackgammonPlayer
+  moves: BackgammonMoves
 }
 
 export type BackgammonPlayConfirmed = Play & {
   stateKind: 'confirmed'
   player: BackgammonPlayer
+  moves: BackgammonMoves
 }
 
 export type BackgammonPlay =
@@ -71,7 +76,7 @@ export type BackgammonPlay =
   | BackgammonPlayRolled
   | BackgammonPlayDoubled
   | BackgammonPlayMoving
-  | BackgammonPlayMoved  
+  | BackgammonPlayMoved
   | BackgammonPlayConfirmed
   | BackgammonMoveCompleted
 
