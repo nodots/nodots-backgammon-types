@@ -1,11 +1,11 @@
 import { BackgammonBoard } from '.'
+import { BackgammonChecker } from './checker'
 import {
   BackgammonCheckerContainer,
   BackgammonMoveDestination,
   BackgammonMoveOrigin,
   BackgammonPoint,
 } from './checkercontainer'
-import { BackgammonChecker } from './checker'
 import { BackgammonDieValue } from './dice'
 import { BackgammonMoveDirection } from './game'
 import {
