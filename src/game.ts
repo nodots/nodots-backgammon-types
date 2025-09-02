@@ -16,7 +16,7 @@ import {
   BackgammonPlayerRolled,
   BackgammonPlayerRolledForStart,
   BackgammonPlayerRolling,
-  BackgammonPlayerWinner,
+  BackgammonPlayerRollingForStart,
   BackgammonPlayers,
 } from './player'
 
@@ -113,7 +113,7 @@ interface BaseGame {
   cube: BackgammonCube
   createdAt: Date
   asciiBoard?: string
-  winner?: BackgammonPlayer
+  winner?: string // player.id of the winning player
   activeColor?: BackgammonColor
   activePlay?: BackgammonPlay
   activePlayer?: BackgammonPlayer
@@ -152,6 +152,8 @@ interface Game extends BaseGame {
 
 export type BackgammonGameRollingForStart = Game & {
   stateKind: 'rolling-for-start'
+  activePlayer: BackgammonPlayerRollingForStart
+  inactivePlayer: BackgammonPlayerRollingForStart
 }
 
 export type BackgammonGameRolledForStart = Game & {
@@ -219,7 +221,7 @@ export type BackgammonGameMoved = Game & {
 
 export type BackgammonGameCompleted = Game & {
   stateKind: 'completed'
-  winner: BackgammonPlayerWinner
+  winner: string // player.id of the winning player
 }
 
 export type BackgammonGame =
