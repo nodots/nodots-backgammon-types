@@ -12,6 +12,11 @@ lib/
 # TypeScript
 *.tsbuildinfo
 
+# TypeScript compiled output
+src/**/*.d.ts
+src/**/*.js
+src/**/*.js.map
+
 # Coverage reports
 coverage/
 *.lcov

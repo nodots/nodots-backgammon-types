@@ -1,4 +1,5 @@
 import { BackgammonBoard } from '.'
+import { BackgammonChecker } from './checker'
 import {
   BackgammonCheckerContainer,
   BackgammonMoveDestination,
@@ -40,6 +41,16 @@ export interface BackgammonMoveBase {
   stateKind: BackgammonMoveStateKind
   moveKind: BackgammonMoveKind
   possibleMoves: BackgammonMoveSkeleton[]
+  moveHistory?: {
+    previousBoardState: string // gnuPositionId
+    hitCheckers?: BackgammonChecker[]
+    executionTimestamp: string
+    undoMetadata?: {
+      canUndo: boolean
+      undoChainIndex: number
+      originalMoveId: string
+    }
+  }
 }
 
 export interface BackgammonMoveReady extends BackgammonMoveBase {
