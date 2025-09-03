@@ -5,7 +5,10 @@ import {
   BackgammonDice,
   BackgammonDiceInactive,
   BackgammonDiceRolled,
+  BackgammonDiceRolledForStart,
   BackgammonDiceRolling,
+  BackgammonDiceRollingForStart,
+  BackgammonDieValue,
 } from './dice'
 import { BackgammonColor, BackgammonMoveDirection } from './game'
 import { BackgammonMoveReady, BackgammonMoveResult } from './move'
@@ -23,73 +26,71 @@ export type BackgammonPlayerStateKind =
   | 'moved'
   | 'winner'
 
-interface BasePlayer {
+interface BasePlayerProps {
   id?: string
   userId: string
   color: BackgammonColor
   direction: BackgammonMoveDirection
-  dice: BackgammonDice
   pipCount: BackgammonPips
   isRobot: boolean
+  rollForStartValue?: BackgammonDieValue
 }
 
-interface Player extends BasePlayer {
-  stateKind: BackgammonPlayerStateKind
-}
-
-export type BackgammonPlayerInitializing = Player & {
+export type BackgammonPlayerInitializing = BasePlayerProps & {
   stateKind: 'initializing'
+  dice: BackgammonDice
 }
 
-export type BackgammonPlayerInactive = Player & {
+export type BackgammonPlayerInactive = BasePlayerProps & {
   id: string
   stateKind: 'inactive'
   dice: BackgammonDiceInactive
 }
 
-export type BackgammonPlayerRollingForStart = Player & {
+export type BackgammonPlayerRollingForStart = BasePlayerProps & {
   id: string
   stateKind: 'rolling-for-start'
-  dice: BackgammonDiceInactive
+  dice: BackgammonDiceRollingForStart
 }
 
-export type BackgammonPlayerRolledForStart = Player & {
+export type BackgammonPlayerRolledForStart = BasePlayerProps & {
   id: string
   stateKind: 'rolled-for-start'
-  dice: BackgammonDiceInactive
+  dice: BackgammonDiceRolledForStart
+  rollForStartValue: BackgammonDieValue
 }
 
-export type BackgammonPlayerRolling = Player & {
+export type BackgammonPlayerRolling = BasePlayerProps & {
   id: string
   stateKind: 'rolling'
   dice: BackgammonDiceRolling
 }
 
-export type BackgammonPlayerRolled = Player & {
+export type BackgammonPlayerRolled = BasePlayerProps & {
   id: string
   stateKind: 'rolled'
   dice: BackgammonDiceRolled
 }
 
-export type BackgammonPlayerDoubled = Player & {
+export type BackgammonPlayerDoubled = BasePlayerProps & {
   id: string
   stateKind: 'doubled'
   dice: BackgammonDiceRolled
 }
 
-export type BackgammonPlayerMoving = Player & {
+export type BackgammonPlayerMoving = BasePlayerProps & {
   id: string
   stateKind: 'moving'
   dice: BackgammonDiceRolled
 }
 
-export type BackgammonPlayerMoved = Player & {
+export type BackgammonPlayerMoved = BasePlayerProps & {
   id: string
   stateKind: 'moved'
   dice: BackgammonDiceRolled
 }
 
-export type BackgammonPlayerWinner = Player & {
+export type BackgammonPlayerWinner = BasePlayerProps & {
   id: string
   stateKind: 'winner'
   dice: BackgammonDiceRolled
@@ -118,7 +119,7 @@ export type BackgammonPlayerActive =
 export type BackgammonPlayers = [BackgammonPlayer, BackgammonPlayer]
 
 export type BackgammonPlayerCheckers<
-  T extends BackgammonChecker = BackgammonChecker
+  T extends BackgammonChecker = BackgammonChecker,
 > = [T, T, T, T, T, T, T, T, T, T, T, T, T, T, T]
 
 export interface PlayerClass {
@@ -126,14 +127,19 @@ export interface PlayerClass {
   stateKind: BackgammonPlayerStateKind
   dice: BackgammonDice
   pipCount: number
+  rollForStartValue?: BackgammonDieValue
 
   initialize: (
     color: BackgammonColor,
     direction: BackgammonMoveDirection,
     dice?: BackgammonDice,
     id?: string,
-    stateKind?: BackgammonPlayerStateKind
+    stateKind?: BackgammonPlayerStateKind,
+    rollForStartValue?: BackgammonDieValue
   ) => BackgammonPlayer
+  rollForStart: (
+    player: BackgammonPlayerRollingForStart
+  ) => BackgammonPlayerRolledForStart
   roll: (player: BackgammonPlayerRolling) => BackgammonPlayerRolled
   double: (player: BackgammonPlayerRolled) => BackgammonPlayerDoubled
   move: (
