@@ -139,7 +139,6 @@ interface BaseGame {
   settings: {
     allowUndo?: boolean
     allowResign?: boolean
-    allowDraw?: boolean
     autoPlay?: boolean
     showHints?: boolean
     showProbabilities?: boolean
@@ -267,7 +266,6 @@ export interface GameClass {
   settings: {
     allowUndo?: boolean
     allowResign?: boolean
-    allowDraw?: boolean
     autoPlay?: boolean
     showHints?: boolean
     showProbabilities?: boolean
@@ -299,7 +297,6 @@ export interface GameClass {
     settings?: {
       allowUndo?: boolean
       allowResign?: boolean
-      allowDraw?: boolean
       autoPlay?: boolean
       showHints?: boolean
       showProbabilities?: boolean
