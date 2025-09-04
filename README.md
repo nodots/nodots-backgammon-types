@@ -52,6 +52,21 @@ import { Game, Move, Player, Board } from '@nodots-llc/backgammon-types'
 
 ## Changelog
 
+### Version 3.7.2
+
+**Breaking Changes:**
+- Removed `allowDraw` setting from game configuration - Backgammon doesn't support draws as a game outcome
+
+**New Features:**
+- Enhanced roll-for-start functionality with dedicated type definitions
+- Added `BackgammonDiceRollingForStart` and `BackgammonDiceRolledForStart` for starting phase dice states
+- Added `BackgammonPlayerRollingForStart` and `BackgammonPlayerRolledForStart` for starting phase player states
+
+**Improvements:**
+- Fixed moves on activePlay to be required fields in all appropriate states
+- Better import organization and type safety
+- Updated .gitignore to exclude compiled files from package
+
 ### Version 3.2.0
 
 **New Features:**
