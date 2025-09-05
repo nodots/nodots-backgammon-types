@@ -16,7 +16,6 @@ import {
   BackgammonPlayerRolled,
   BackgammonPlayerRolledForStart,
   BackgammonPlayerRolling,
-  BackgammonPlayerRollingForStart,
   BackgammonPlayers,
 } from './player'
 
@@ -126,7 +125,7 @@ interface BaseGame {
   metadata?: BackgammonGameMetadata
   statistics?: BackgammonGameStatistics
   timing?: BackgammonGameTiming
-  gnuPositionId: string
+  gnuPositionId?: string
   version: string // Game format version for compatibility
   rules: {
     useCrawfordRule?: boolean
@@ -151,8 +150,6 @@ interface Game extends BaseGame {
 
 export type BackgammonGameRollingForStart = Game & {
   stateKind: 'rolling-for-start'
-  activePlayer: BackgammonPlayerRollingForStart
-  inactivePlayer: BackgammonPlayerRollingForStart
 }
 
 export type BackgammonGameRolledForStart = Game & {
