@@ -45,6 +45,7 @@ export type BackgammonPlayerInactive = BasePlayerProps & {
   id: string
   stateKind: 'inactive'
   dice: BackgammonDiceInactive
+  rollForStartValue: BackgammonDieValue
 }
 
 export type BackgammonPlayerRollingForStart = BasePlayerProps & {
@@ -64,36 +65,42 @@ export type BackgammonPlayerRolling = BasePlayerProps & {
   id: string
   stateKind: 'rolling'
   dice: BackgammonDiceRolling
+  rollForStartValue: BackgammonDieValue
 }
 
 export type BackgammonPlayerRolled = BasePlayerProps & {
   id: string
   stateKind: 'rolled'
   dice: BackgammonDiceRolled
+  rollForStartValue: BackgammonDieValue
 }
 
 export type BackgammonPlayerDoubled = BasePlayerProps & {
   id: string
   stateKind: 'doubled'
   dice: BackgammonDiceRolled
+  rollForStartValue: BackgammonDieValue
 }
 
 export type BackgammonPlayerMoving = BasePlayerProps & {
   id: string
   stateKind: 'moving'
   dice: BackgammonDiceRolled
+  rollForStartValue: BackgammonDieValue
 }
 
 export type BackgammonPlayerMoved = BasePlayerProps & {
   id: string
   stateKind: 'moved'
   dice: BackgammonDiceRolled
+  rollForStartValue: BackgammonDieValue
 }
 
 export type BackgammonPlayerWinner = BasePlayerProps & {
   id: string
   stateKind: 'winner'
   dice: BackgammonDiceRolled
+  rollForStartValue: BackgammonDieValue
 }
 
 export type BackgammonPlayer =
