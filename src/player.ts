@@ -163,10 +163,9 @@ export interface PlayerClass {
     player: BackgammonPlayer
   ) => BackgammonPoint[]
   getBestMove: (possibleMoves: BackgammonMoveReady[]) => BackgammonMoveReady
-  // These methods are added to mirror the GameClass interface, making player state transitions
-  // (to 'moving' and 'doubling') explicit and keeping the player model consistent with the game model.
+  // This method is added to mirror the GameClass interface, making player state transitions
+  // to 'moving' explicit and keeping the player model consistent with the game model.
   toMoving: (
     player: BackgammonPlayerRolled | BackgammonPlayerDoubled
   ) => BackgammonPlayerMoving
-  toDoubling: (player: BackgammonPlayerRolled) => BackgammonPlayerDoubled
 }
