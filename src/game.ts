@@ -54,7 +54,6 @@ export type BackgammonGameStateKind =
   | 'rolling-for-start'
   | 'rolled-for-start'
   | 'rolling'
-  | 'rolled'
   | 'doubled'
   | 'moving'
   | 'moved'
@@ -164,14 +163,6 @@ export type BackgammonGameRolling = Game & {
   inactivePlayer: BackgammonPlayerInactive
 }
 
-// Changed activePlayer to BackgammonPlayerRolled
-export type BackgammonGameRolled = Game & {
-  stateKind: 'rolled'
-  activeColor: BackgammonColor
-  activePlayer: BackgammonPlayerRolled
-  inactivePlayer: BackgammonPlayerInactive
-  activePlay: BackgammonPlayRolled
-}
 
 
 
@@ -208,17 +199,11 @@ export type BackgammonGame =
   | BackgammonGameRollingForStart
   | BackgammonGameRolledForStart
   | BackgammonGameRolling
-  | BackgammonGameRolled
   | BackgammonGameDoubled
   | BackgammonGameMoving
   | BackgammonGameMoved
   | BackgammonGameCompleted
 
-export interface BackgammonRolledStateCapabilities {
-  canSwitchDice: boolean
-  canDouble: boolean
-  canMove: boolean
-}
 
 export interface GameProps {
   players: BackgammonPlayers
@@ -290,16 +275,7 @@ export interface GameClass {
   rollForStart: (
     game: BackgammonGameRollingForStart
   ) => BackgammonGameRolledForStart
-  roll: (game: BackgammonGameRolledForStart | BackgammonGameRolling | BackgammonGameDoubled) => BackgammonGameRolled
-  /**
-   * This is a pseudo state transition. The user transitions into a "moving" state when they
-   * click on a checker (rather than the cube). But the instant they click the
-   * checker they are in a moved state.
-   * Now only accepts rolled or doubled states after removing intermediate states
-   */
-  toMoving: (
-    game: BackgammonGameRolled | BackgammonGameDoubled
-  ) => BackgammonGameMoving
+  roll: (game: BackgammonGameRolledForStart | BackgammonGameRolling | BackgammonGameDoubled) => BackgammonGameMoving
   double: (game: BackgammonGameRolling) => BackgammonGameDoubled
   move: (
     game: BackgammonGameMoving,
@@ -312,5 +288,4 @@ export interface GameClass {
     color: BackgammonColor
   ) => [BackgammonPlayerActive, BackgammonPlayerInactive]
   sanityCheckMovingGame: (game: BackgammonGame) => BackgammonGameMoving | false
-  getRolledStateCapabilities: (game: BackgammonGameRolled) => BackgammonRolledStateCapabilities
 }
