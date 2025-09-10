@@ -5,7 +5,6 @@ import {
   BackgammonPlay,
   BackgammonPlayDoubled,
   BackgammonPlayMoving,
-  BackgammonPlayRolled,
 } from './play'
 import {
   BackgammonPlayer,
@@ -13,7 +12,6 @@ import {
   BackgammonPlayerDoubled,
   BackgammonPlayerInactive,
   BackgammonPlayerMoving,
-  BackgammonPlayerRolled,
   BackgammonPlayerRolledForStart,
   BackgammonPlayerRolling,
   BackgammonPlayers,
@@ -163,9 +161,6 @@ export type BackgammonGameRolling = Game & {
   inactivePlayer: BackgammonPlayerInactive
 }
 
-
-
-
 export type BackgammonGameDoubled = Game & {
   stateKind: 'doubled'
   activeColor: BackgammonColor
@@ -203,7 +198,6 @@ export type BackgammonGame =
   | BackgammonGameMoving
   | BackgammonGameMoved
   | BackgammonGameCompleted
-
 
 export interface GameProps {
   players: BackgammonPlayers
@@ -275,7 +269,12 @@ export interface GameClass {
   rollForStart: (
     game: BackgammonGameRollingForStart
   ) => BackgammonGameRolledForStart
-  roll: (game: BackgammonGameRolledForStart | BackgammonGameRolling | BackgammonGameDoubled) => BackgammonGameMoving
+  roll: (
+    game:
+      | BackgammonGameRolledForStart
+      | BackgammonGameRolling
+      | BackgammonGameDoubled
+  ) => BackgammonGameMoving
   double: (game: BackgammonGameRolling) => BackgammonGameDoubled
   move: (
     game: BackgammonGameMoving,
