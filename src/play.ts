@@ -6,7 +6,6 @@ import { BackgammonMoveCompleted, BackgammonMoves } from './move'
 import {
   BackgammonPlayer,
   BackgammonPlayerMoving,
-  BackgammonPlayerRolled,
   BackgammonPlayerRolling,
 } from './player'
 
@@ -18,7 +17,6 @@ export type BackgammonPlayResult = {
 
 export type BackgammonPlayStateKind =
   | 'rolling'
-  | 'rolled'
   | 'moving'
   | 'moved'
   | 'confirmed'
@@ -39,16 +37,10 @@ export type BackgammonPlayRolling = Play & {
   player: BackgammonPlayerRolling
 }
 
-export type BackgammonPlayRolled = Play & {
-  stateKind: 'rolled'
-  player: BackgammonPlayerRolled
-  moves: BackgammonMoves
-  dice: BackgammonDiceRolled
-}
 
 export type BackgammonPlayDoubled = Play & {
   stateKind: 'doubled'
-  player: BackgammonPlayerRolled
+  player: BackgammonPlayerMoving
   moves: BackgammonMoves
   dice: BackgammonDiceRolled
 }
@@ -73,7 +65,6 @@ export type BackgammonPlayConfirmed = Play & {
 
 export type BackgammonPlay =
   | BackgammonPlayRolling
-  | BackgammonPlayRolled
   | BackgammonPlayDoubled
   | BackgammonPlayMoving
   | BackgammonPlayMoved
@@ -81,8 +72,8 @@ export type BackgammonPlay =
   | BackgammonMoveCompleted
 
 export type BackgammonRollResults = {
-  player: BackgammonPlayerRolled
-  activePlay: BackgammonPlayRolled
+  player: BackgammonPlayerMoving
+  activePlay: BackgammonPlayMoving
 }
 
 export type BackgammonPlayResults = {
@@ -107,16 +98,15 @@ export interface PlayClass {
   board: BackgammonBoard
   player:
     | BackgammonPlayerRolling
-    | BackgammonPlayerRolled
     | BackgammonPlayerMoving
 
   initialize: (
     board: BackgammonBoard,
-    player: BackgammonPlayerRolled
-  ) => BackgammonPlayRolled
+    player: BackgammonPlayerMoving
+  ) => BackgammonPlayMoving
   move: (
     board: BackgammonBoard,
-    play: BackgammonPlayRolled | BackgammonPlayMoving,
+    play: BackgammonPlayMoving,
     origin: BackgammonMoveOrigin
   ) => {
     play: BackgammonPlayMoving
