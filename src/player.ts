@@ -20,7 +20,6 @@ export type BackgammonPlayerStateKind =
   | 'rolling-for-start'
   | 'rolled-for-start'
   | 'rolling'
-  | 'rolled'
   | 'doubled'
   | 'moving'
   | 'moved'
@@ -68,12 +67,6 @@ export type BackgammonPlayerRolling = BasePlayerProps & {
   rollForStartValue: BackgammonDieValue
 }
 
-export type BackgammonPlayerRolled = BasePlayerProps & {
-  id: string
-  stateKind: 'rolled'
-  dice: BackgammonDiceRolled
-  rollForStartValue: BackgammonDieValue
-}
 
 export type BackgammonPlayerDoubled = BasePlayerProps & {
   id: string
@@ -108,7 +101,6 @@ export type BackgammonPlayer =
   | BackgammonPlayerRollingForStart
   | BackgammonPlayerRolledForStart
   | BackgammonPlayerRolling
-  | BackgammonPlayerRolled
   | BackgammonPlayerDoubled
   | BackgammonPlayerMoving
   | BackgammonPlayerMoved
@@ -118,7 +110,6 @@ export type BackgammonPlayerActive =
   | BackgammonPlayerRollingForStart
   | BackgammonPlayerRolledForStart
   | BackgammonPlayerRolling
-  | BackgammonPlayerRolled
   | BackgammonPlayerDoubled
   | BackgammonPlayerMoving
   | BackgammonPlayerMoved
@@ -147,8 +138,8 @@ export interface PlayerClass {
   rollForStart: (
     player: BackgammonPlayerRollingForStart
   ) => BackgammonPlayerRolledForStart
-  roll: (player: BackgammonPlayerRolling) => BackgammonPlayerRolled
-  double: (player: BackgammonPlayerRolled) => BackgammonPlayerDoubled
+  roll: (player: BackgammonPlayerRolling) => BackgammonPlayerMoving
+  double: (player: BackgammonPlayerMoving) => BackgammonPlayerDoubled
   move: (
     board: BackgammonBoard,
     play: BackgammonPlayMoving,
@@ -166,6 +157,6 @@ export interface PlayerClass {
   // This method is added to mirror the GameClass interface, making player state transitions
   // to 'moving' explicit and keeping the player model consistent with the game model.
   toMoving: (
-    player: BackgammonPlayerRolled | BackgammonPlayerDoubled
+    player: BackgammonPlayerDoubled
   ) => BackgammonPlayerMoving
 }
