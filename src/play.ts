@@ -1,7 +1,7 @@
 import { BackgammonBoard } from './board'
 import { BackgammonMoveOrigin } from './checkercontainer'
 import { BackgammonCube } from './cube'
-import { BackgammonDiceRolled } from './dice'
+import { BackgammonDiceRolled, BackgammonDieValue } from './dice'
 import { BackgammonMoveCompleted, BackgammonMoves } from './move'
 import {
   BackgammonPlayer,
@@ -13,6 +13,9 @@ export type BackgammonPlayResult = {
   board: BackgammonBoard
   play: BackgammonPlay
   move: BackgammonMoveCompleted
+  autoSwitched?: boolean
+  originalDieValue?: BackgammonDieValue
+  usedDieValue?: BackgammonDieValue
 }
 
 export type BackgammonPlayStateKind =
