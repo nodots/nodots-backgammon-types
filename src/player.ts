@@ -114,7 +114,23 @@ export type BackgammonPlayerActive =
   | BackgammonPlayerMoving
   | BackgammonPlayerMoved
 
+// Generic players tuple (kept for backward compatibility)
 export type BackgammonPlayers = [BackgammonPlayer, BackgammonPlayer]
+
+// State-specific player tuple types for precise game state typing
+export type BackgammonPlayersRollingForStart = [BackgammonPlayerRollingForStart, BackgammonPlayerRollingForStart]
+
+export type BackgammonPlayersRolledForStart = [BackgammonPlayerRolledForStart, BackgammonPlayerInactive]
+
+export type BackgammonPlayersRolling = [BackgammonPlayerRolling, BackgammonPlayerInactive]
+
+export type BackgammonPlayersDoubled = [BackgammonPlayerDoubled, BackgammonPlayerInactive]
+
+export type BackgammonPlayersMoving = [BackgammonPlayerMoving, BackgammonPlayerInactive]
+
+export type BackgammonPlayersMoved = [BackgammonPlayerMoved, BackgammonPlayerInactive]
+
+export type BackgammonPlayersCompleted = [BackgammonPlayerWinner, BackgammonPlayerInactive]
 
 export type BackgammonPlayerCheckers<
   T extends BackgammonChecker = BackgammonChecker,

@@ -1,11 +1,7 @@
 import { BackgammonBoard } from './board'
 import { BackgammonMoveOrigin } from './checkercontainer'
 import { BackgammonCube } from './cube'
-import {
-  BackgammonPlay,
-  BackgammonPlayDoubled,
-  BackgammonPlayMoving,
-} from './play'
+import { BackgammonPlay, BackgammonPlayMoving } from './play'
 import {
   BackgammonPlayer,
   BackgammonPlayerActive,
@@ -15,6 +11,13 @@ import {
   BackgammonPlayerRolledForStart,
   BackgammonPlayerRolling,
   BackgammonPlayers,
+  BackgammonPlayersCompleted,
+  BackgammonPlayersDoubled,
+  BackgammonPlayersMoved,
+  BackgammonPlayersMoving,
+  BackgammonPlayersRolledForStart,
+  BackgammonPlayersRolling,
+  BackgammonPlayersRollingForStart,
 } from './player'
 
 // --------------------------------------------------------------------------------------
@@ -102,7 +105,6 @@ export interface BackgammonGameTiming {
 
 interface BaseGame {
   id: string
-  players: BackgammonPlayers
   board: BackgammonBoard
   cube: BackgammonCube
   createdAt: Date
@@ -139,54 +141,58 @@ interface BaseGame {
   }
 }
 
-interface Game extends BaseGame {
-  stateKind: BackgammonGameStateKind
-}
+// Base interface for game states - all game state types extend BaseGame directly
 
-export type BackgammonGameRollingForStart = Game & {
+export type BackgammonGameRollingForStart = BaseGame & {
   stateKind: 'rolling-for-start'
+  players: BackgammonPlayersRollingForStart
 }
 
-export type BackgammonGameRolledForStart = Game & {
+export type BackgammonGameRolledForStart = BaseGame & {
   stateKind: 'rolled-for-start'
+  players: BackgammonPlayersRolledForStart
   activeColor: BackgammonColor
   activePlayer: BackgammonPlayerRolledForStart
   inactivePlayer: BackgammonPlayerInactive
 }
 
-export type BackgammonGameRolling = Game & {
+export type BackgammonGameRolling = BaseGame & {
   stateKind: 'rolling'
+  players: BackgammonPlayersRolling
   activeColor: BackgammonColor
   activePlayer: BackgammonPlayerRolling
   inactivePlayer: BackgammonPlayerInactive
 }
 
-export type BackgammonGameDoubled = Game & {
+export type BackgammonGameDoubled = Omit<BaseGame, 'activePlay'> & {
   stateKind: 'doubled'
+  players: BackgammonPlayersDoubled
   activeColor: BackgammonColor
-  activePlay: BackgammonPlayDoubled
   activePlayer: BackgammonPlayerDoubled
   inactivePlayer: BackgammonPlayerInactive
 }
 
-export type BackgammonGameMoving = Game & {
+export type BackgammonGameMoving = BaseGame & {
   stateKind: 'moving'
+  players: BackgammonPlayersMoving
   activeColor: BackgammonColor
   activePlay: BackgammonPlayMoving
   activePlayer: BackgammonPlayerMoving
   inactivePlayer: BackgammonPlayerInactive
 }
 
-export type BackgammonGameMoved = Game & {
+export type BackgammonGameMoved = BaseGame & {
   stateKind: 'moved'
+  players: BackgammonPlayersMoved
   activeColor: BackgammonColor
   activePlay: BackgammonPlayMoving
   activePlayer: BackgammonPlayerMoving
   inactivePlayer: BackgammonPlayerInactive
 }
 
-export type BackgammonGameCompleted = Game & {
+export type BackgammonGameCompleted = BaseGame & {
   stateKind: 'completed'
+  players: BackgammonPlayersCompleted
   winner: string // player.id of the winning player
 }
 
