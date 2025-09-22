@@ -72,7 +72,6 @@ export type BackgammonPlay =
   | BackgammonPlayMoving
   | BackgammonPlayMoved
   | BackgammonPlayConfirmed
-  | BackgammonMoveCompleted
 
 export type BackgammonRollResults = {
   player: BackgammonPlayerMoving
@@ -111,9 +110,5 @@ export interface PlayClass {
     board: BackgammonBoard,
     play: BackgammonPlayMoving,
     origin: BackgammonMoveOrigin
-  ) => {
-    play: BackgammonPlayMoving
-    board: BackgammonBoard
-    move: BackgammonMoveCompleted
-  }
+  ) => BackgammonPlayResult
 }
