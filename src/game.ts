@@ -151,7 +151,7 @@ export type BackgammonGameRolledForStart = Game & {
   stateKind: 'rolled-for-start'
   activeColor: BackgammonColor
   activePlayer: BackgammonPlayerRolledForStart
-  inactivePlayer: BackgammonPlayerInactive
+  inactivePlayer: BackgammonPlayerRolledForStart
 }
 
 export type BackgammonGameRolling = Game & {
@@ -279,7 +279,7 @@ export interface GameClass {
   move: (
     game: BackgammonGameMoving,
     origin: BackgammonMoveOrigin
-  ) => BackgammonGameMoved
+  ) => BackgammonGameMoved | BackgammonGameMoving | BackgammonGameCompleted
   getActivePlayer: (game: BackgammonGame) => BackgammonPlayerActive
   getInactivePlayer: (game: BackgammonGame) => BackgammonPlayerInactive
   getPlayersForColor: (

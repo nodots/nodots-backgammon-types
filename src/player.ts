@@ -67,7 +67,6 @@ export type BackgammonPlayerRolling = BasePlayerProps & {
   rollForStartValue: BackgammonDieValue
 }
 
-
 export type BackgammonPlayerDoubled = BasePlayerProps & {
   id: string
   stateKind: 'doubled'
@@ -156,7 +155,5 @@ export interface PlayerClass {
   getBestMove: (possibleMoves: BackgammonMoveReady[]) => BackgammonMoveReady
   // This method is added to mirror the GameClass interface, making player state transitions
   // to 'moving' explicit and keeping the player model consistent with the game model.
-  toMoving: (
-    player: BackgammonPlayerDoubled
-  ) => BackgammonPlayerMoving
+  toMoving: (player: BackgammonPlayerDoubled) => BackgammonPlayerMoving
 }
