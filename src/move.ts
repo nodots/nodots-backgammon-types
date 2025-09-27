@@ -11,7 +11,6 @@ import { BackgammonMoveDirection } from './game'
 import {
   BackgammonPlayer,
   BackgammonPlayerMoving,
-  BackgammonPlayerRolled,
 } from './player'
 
 export type BackgammonMoveStateKind =
@@ -151,7 +150,7 @@ export interface MoveClass {
   initialize: (props: MoveProps) => BackgammonMove
   isPointOpen: (
     point: BackgammonPoint,
-    player: BackgammonPlayerMoving | BackgammonPlayerRolled
+    player: BackgammonPlayerMoving
   ) => boolean
   move: (
     board: BackgammonBoard,

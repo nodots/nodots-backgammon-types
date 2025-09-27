@@ -20,7 +20,6 @@ export type BackgammonPlayerStateKind =
   | 'rolling-for-start'
   | 'rolled-for-start'
   | 'rolling'
-  | 'rolled'
   | 'doubled'
   | 'moving'
   | 'moved'
@@ -45,6 +44,7 @@ export type BackgammonPlayerInactive = BasePlayerProps & {
   id: string
   stateKind: 'inactive'
   dice: BackgammonDiceInactive
+  rollForStartValue: BackgammonDieValue
 }
 
 export type BackgammonPlayerRollingForStart = BasePlayerProps & {
@@ -64,36 +64,35 @@ export type BackgammonPlayerRolling = BasePlayerProps & {
   id: string
   stateKind: 'rolling'
   dice: BackgammonDiceRolling
-}
-
-export type BackgammonPlayerRolled = BasePlayerProps & {
-  id: string
-  stateKind: 'rolled'
-  dice: BackgammonDiceRolled
+  rollForStartValue: BackgammonDieValue
 }
 
 export type BackgammonPlayerDoubled = BasePlayerProps & {
   id: string
   stateKind: 'doubled'
   dice: BackgammonDiceRolled
+  rollForStartValue: BackgammonDieValue
 }
 
 export type BackgammonPlayerMoving = BasePlayerProps & {
   id: string
   stateKind: 'moving'
   dice: BackgammonDiceRolled
+  rollForStartValue: BackgammonDieValue
 }
 
 export type BackgammonPlayerMoved = BasePlayerProps & {
   id: string
   stateKind: 'moved'
   dice: BackgammonDiceRolled
+  rollForStartValue: BackgammonDieValue
 }
 
 export type BackgammonPlayerWinner = BasePlayerProps & {
   id: string
   stateKind: 'winner'
   dice: BackgammonDiceRolled
+  rollForStartValue: BackgammonDieValue
 }
 
 export type BackgammonPlayer =
@@ -101,7 +100,6 @@ export type BackgammonPlayer =
   | BackgammonPlayerRollingForStart
   | BackgammonPlayerRolledForStart
   | BackgammonPlayerRolling
-  | BackgammonPlayerRolled
   | BackgammonPlayerDoubled
   | BackgammonPlayerMoving
   | BackgammonPlayerMoved
@@ -111,7 +109,6 @@ export type BackgammonPlayerActive =
   | BackgammonPlayerRollingForStart
   | BackgammonPlayerRolledForStart
   | BackgammonPlayerRolling
-  | BackgammonPlayerRolled
   | BackgammonPlayerDoubled
   | BackgammonPlayerMoving
   | BackgammonPlayerMoved
@@ -140,8 +137,8 @@ export interface PlayerClass {
   rollForStart: (
     player: BackgammonPlayerRollingForStart
   ) => BackgammonPlayerRolledForStart
-  roll: (player: BackgammonPlayerRolling) => BackgammonPlayerRolled
-  double: (player: BackgammonPlayerRolled) => BackgammonPlayerDoubled
+  roll: (player: BackgammonPlayerRolling) => BackgammonPlayerMoving
+  double: (player: BackgammonPlayerMoving) => BackgammonPlayerDoubled
   move: (
     board: BackgammonBoard,
     play: BackgammonPlayMoving,
@@ -156,10 +153,7 @@ export interface PlayerClass {
     player: BackgammonPlayer
   ) => BackgammonPoint[]
   getBestMove: (possibleMoves: BackgammonMoveReady[]) => BackgammonMoveReady
-  // These methods are added to mirror the GameClass interface, making player state transitions
-  // (to 'moving' and 'doubling') explicit and keeping the player model consistent with the game model.
-  toMoving: (
-    player: BackgammonPlayerRolled | BackgammonPlayerDoubled
-  ) => BackgammonPlayerMoving
-  toDoubling: (player: BackgammonPlayerRolled) => BackgammonPlayerDoubled
+  // This method is added to mirror the GameClass interface, making player state transitions
+  // to 'moving' explicit and keeping the player model consistent with the game model.
+  toMoving: (player: BackgammonPlayerDoubled) => BackgammonPlayerMoving
 }
