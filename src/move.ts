@@ -110,7 +110,7 @@ export interface BackgammonMoveDryRunResult {
   move: BackgammonMoveReady | BackgammonMoveCompleted
 }
 
-export type BackgammonMoves = Set<BackgammonMove>
+export type BackgammonMoves = BackgammonMove[]
 
 export interface MoveProps {
   move: BackgammonMove
