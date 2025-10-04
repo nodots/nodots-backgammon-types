@@ -57,6 +57,20 @@ export type BackgammonGameStateKind =
   | 'moved'
   | 'completed'
 
+// Game states that are valid for restoration (all current states are restorable)
+export type BackgammonRestorableGameStateKind = BackgammonGameStateKind
+
+// Array of valid restorable state kinds for runtime validation
+export const RESTORABLE_GAME_STATE_KINDS: readonly BackgammonRestorableGameStateKind[] = [
+  'rolling-for-start',
+  'rolled-for-start',
+  'rolling',
+  'moving',
+  'moved',
+  'doubled',
+  'completed'
+] as const
+
 // New game metadata and statistics interfaces
 export interface BackgammonGameMetadata {
   title?: string
