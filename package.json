@@ -7,10 +7,12 @@
   "exports": {
     ".": {
       "import": "./dist/index.js",
+      "require": "./dist/index.js",
       "types": "./dist/index.d.ts"
     },
     "./history": {
       "import": "./dist/history.js",
+      "require": "./dist/history.js",
       "types": "./dist/history.d.ts"
     }
   },
