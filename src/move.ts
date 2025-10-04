@@ -15,7 +15,6 @@ import {
 
 export type BackgammonMoveStateKind =
   | 'ready'
-  | 'in-progress'
   | 'completed'
   | 'confirmed'
 
@@ -54,13 +53,6 @@ export interface BackgammonMoveBase {
 
 export interface BackgammonMoveReady extends BackgammonMoveBase {
   stateKind: 'ready'
-  origin: BackgammonMoveOrigin
-}
-
-export interface BackgammonMoveInProgress extends BackgammonMoveBase {
-  stateKind: 'in-progress'
-  origin: BackgammonMoveOrigin
-  destination: BackgammonMoveDestination
 }
 
 export interface BackgammonMoveCompletedWithMove extends BackgammonMoveBase {
@@ -105,7 +97,6 @@ export type BackgammonMoveConfirmed =
 
 export type BackgammonMove =
   | BackgammonMoveReady
-  | BackgammonMoveInProgress
   | BackgammonMoveCompleted
   | BackgammonMoveConfirmed
 
@@ -119,7 +110,7 @@ export interface BackgammonMoveDryRunResult {
   move: BackgammonMoveReady | BackgammonMoveCompleted
 }
 
-export type BackgammonMoves = Set<BackgammonMove>
+export type BackgammonMoves = BackgammonMove[]
 
 export interface MoveProps {
   move: BackgammonMove
@@ -157,5 +148,4 @@ export interface MoveClass {
     move: BackgammonMoveReady,
     isDryRun?: boolean
   ) => BackgammonMoveResult | BackgammonMoveDryRunResult
-  confirmMove: (move: BackgammonMoveInProgress) => BackgammonMoveConfirmed
 }
