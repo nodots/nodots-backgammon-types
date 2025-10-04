@@ -13,6 +13,7 @@ export type GameActionType =
   | 'decline-double'
   | 'resign'
   | 'undo-move'
+  | 'restore-state'
   | 'auto-pass'
   | 'timeout'
 
