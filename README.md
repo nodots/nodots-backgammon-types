@@ -52,6 +52,11 @@ import { Game, Move, Player, Board } from '@nodots-llc/backgammon-types'
 
 ## Changelog
 
+### Version 4.1.1
+
+- Documentation updates and version alignment to 4.1.x
+- No breaking type changes from 3.x series
+
 ### Version 3.7.2
 
 **Breaking Changes:**
