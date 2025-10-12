@@ -123,3 +123,5 @@ MIT License - See LICENSE file for details
 ## Author
 
 Ken Riley <kenr@nodots.com>
+
+> Note: This package provides shared TypeScript types used by core, ai, api, and client packages.
