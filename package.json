@@ -1,6 +1,6 @@
 {
   "name": "@nodots-llc/backgammon-types",
-  "version": "4.5.0",
+  "version": "4.5.1",
   "description": "Type definitions for Nodots Backgammon",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -20,30 +20,20 @@
     }
   },
   "private": false,
-  "publishConfig": {
-    "access": "public"
-  },
   "scripts": {
     "build": "tsc",
     "clean": "rm -rf dist",
     "test": "echo 'No tests defined for types package'",
     "prepare": "npm run build",
-    "release": "npm run build && npm publish --access public",
-    "release:provenance": "npm run build && npm publish --access public --provenance",
-    "publish:dry-run": "npm run build && npm publish --access public --dry-run",
-    "prepublishOnly": "npm run build"
+    "release": "npm run build && npm publish",
+    "publish:dry-run": "npm run build && npm publish --dry-run"
   },
   "author": "Ken Riley <kenr@nodots.com>",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nodots/nodots-backgammon-types.git",
-    "directory": "packages/types"
+    "url": "git+https://github.com/nodots/nodots-backgammon-types.git"
   },
-  "bugs": {
-    "url": "https://github.com/nodots/nodots-backgammon-types/issues"
-  },
-  "homepage": "https://github.com/nodots/nodots-backgammon-types",
   "keywords": [
     "backgammon",
     "types",
