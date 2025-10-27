@@ -1,6 +1,6 @@
 # @nodots-llc/backgammon-types
 
-Current version: 4.1.1
+Current version: 4.4.0
 
 Type definitions for the nodots-backgammon project. This package provides TypeScript type definitions and interfaces for representing backgammon game states, moves, and related functionality.
 
@@ -50,11 +50,32 @@ import { Game, Move, Player, Board } from '@nodots-llc/backgammon-types'
 
 Types are designed to be consumed directly in applications and other packages in this monorepo (core, ai, api, client). The package ships `.d.ts` files alongside ESM/CJS-compatible JS for broad tooling support.
 
-## Model
-
-![Source Diagram](src_diagram.png)
-
 ## Changelog
+
+### Version 4.4.0
+
+**New Features:**
+
+- Added AI telemetry and override tracking types for game history
+  - `OverrideReason` - Enum for categorizing AI move override reasons (plan-origin-not-legal, mapping-failed, no-gnu-hints, etc.)
+  - `OverrideInfo` - Interface for override metadata with reasonCode and reasonText
+  - `AITelemetryStep` - Comprehensive telemetry interface for AI move execution including:
+    - Position and roll tracking (positionId, roll, rollSource)
+    - One-shot plan context (planLength, planIndex, planSource)
+    - Engine and mapping diagnostics (hintCount, mappedOriginId, mappingStrategy, mappingOutcome)
+    - CORE legality snapshots for debugging mismatches
+    - Dice handling telemetry (singleDieRemaining)
+
+**Improvements:**
+
+- Enhanced monorepo build system with TypeScript project references
+- Added clean scripts for package maintenance
+- Improved package.json configuration with proper exports field for history module
+- Build optimizations using `tsc -b` for faster incremental builds
+
+**Breaking Changes:**
+
+- None - all changes are backward compatible additions
 
 ### Version 4.1.1
 
@@ -64,14 +85,17 @@ Types are designed to be consumed directly in applications and other packages in
 ### Version 3.7.2
 
 **Breaking Changes:**
+
 - Removed `allowDraw` setting from game configuration - Backgammon doesn't support draws as a game outcome
 
 **New Features:**
+
 - Enhanced roll-for-start functionality with dedicated type definitions
 - Added `BackgammonDiceRollingForStart` and `BackgammonDiceRolledForStart` for starting phase dice states
 - Added `BackgammonPlayerRollingForStart` and `BackgammonPlayerRolledForStart` for starting phase player states
 
 **Improvements:**
+
 - Fixed moves on activePlay to be required fields in all appropriate states
 - Better import organization and type safety
 - Updated .gitignore to exclude compiled files from package
