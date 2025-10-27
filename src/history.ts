@@ -19,6 +19,32 @@ export type GameActionType =
 
 export type GameActionData = Record<string, unknown>
 
+// Specific action data types for different game actions
+export interface GameStartActionData {
+  startingPlayer: BackgammonColor
+  initialDiceRoll: [BackgammonDieValue, BackgammonDieValue]
+}
+
+export interface RollDiceActionData {
+  dice: [BackgammonDieValue, BackgammonDieValue]
+}
+
+export interface MakeMoveActionData {
+  checkerId: string
+  originPosition: number | 'bar' | 'off'
+  destinationPosition: number | 'bar' | 'off'
+  dieValue: BackgammonDieValue
+  isHit: boolean
+  moveKind: 'point-to-point' | 'reenter' | 'bear-off'
+}
+
+export interface GameEndActionData {
+  winner: BackgammonColor
+  reason: 'checkmate' | 'resignation' | 'timeout'
+  points: number
+  finalPipCounts: { black: number; white: number }
+}
+
 export interface GameActionMetadata {
   duration?: number
   undoable?: boolean
