@@ -19,6 +19,32 @@ export type GameActionType =
 
 export type GameActionData = Record<string, unknown>
 
+// Specific action data types for different game actions
+export interface GameStartActionData {
+  startingPlayer: BackgammonColor
+  initialDiceRoll: [BackgammonDieValue, BackgammonDieValue]
+}
+
+export interface RollDiceActionData {
+  dice: [BackgammonDieValue, BackgammonDieValue]
+}
+
+export interface MakeMoveActionData {
+  checkerId: string
+  originPosition: number | 'bar' | 'off'
+  destinationPosition: number | 'bar' | 'off'
+  dieValue: BackgammonDieValue
+  isHit: boolean
+  moveKind: 'point-to-point' | 'reenter' | 'bear-off'
+}
+
+export interface GameEndActionData {
+  winner: BackgammonColor
+  reason: 'checkmate' | 'resignation' | 'timeout'
+  points: number
+  finalPipCounts: { black: number; white: number }
+}
+
 export interface GameActionMetadata {
   duration?: number
   undoable?: boolean
@@ -89,6 +115,7 @@ export interface GameStateSnapshot {
   cubeState: CubeStateSnapshot
   playerStates: PlayerStatesSnapshot
   pipCounts: { black: number; white: number }
+  asciiBoard?: string
   gnuPositionId?: string
 }
 
@@ -138,4 +165,61 @@ export interface GameHistory {
 
 export interface GameReconstructionOptions {
   validateIntegrity?: boolean
+}
+
+// ===== AI Override & Telemetry (shared domain types) =====
+
+export type OverrideReason =
+  | 'plan-origin-not-legal'
+  | 'mapping-failed'
+  | 'no-gnu-hints'
+  | 'no-gnu-hints-or-mapping-failed'
+  | 'core-move-mismatch'
+  | 'single-die-encoding'
+  | 'ready-empty'
+  | 'invalid-state'
+  | 'safety-fallback'
+  | 'unknown'
+
+export interface OverrideInfo {
+  reasonCode: OverrideReason
+  reasonText?: string
+}
+
+// Minimal telemetry shape currently emitted/consumed
+export interface AITelemetryStep {
+  step: number
+  positionId: string
+  roll: [BackgammonDieValue, BackgammonDieValue]
+  rollSource?: 'player-currentRoll' | 'ready-derived'
+  singleDieRemaining?: boolean
+  // One-shot plan context
+  planLength?: number
+  planIndex?: number
+  planSource?: 'turn-plan'
+  // Engine/mapping context (kept simple for now)
+  hintCount?: number
+  mappedOriginId?: string | null
+  usedFallback: boolean
+  fallbackReason?: string
+  postState: string
+  // Mapping/legality diagnostics (extended)
+  plannedFrom?: number | null
+  plannedTo?: number | null
+  plannedKind?: string
+  legalOriginIds?: string[]
+  mappingStrategy?: 'id' | 'position' | 'rehint' | 'none'
+  mappingOutcome?: 'ok' | 'ok-rehint' | 'no-origin' | 'no-legal' | 'id-miss' | 'pos-miss'
+  expectedDie?: BackgammonDieValue | number
+  matchedDie?: BackgammonDieValue | number
+  // CORE legality snapshot (for mismatches)
+  activeDirection?: 'clockwise' | 'counterclockwise'
+  barCount?: number
+  offCount?: number
+  readyMovesSample?: Array<{
+    die?: number
+    originPos?: number | null
+    destPos?: number | null
+    kind?: string
+  }>
 }
