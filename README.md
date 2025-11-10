@@ -1,6 +1,6 @@
 # @nodots-llc/backgammon-types
 
-Current version: 4.5.0
+Current version: 4.5.1
 
 Type definitions for the nodots-backgammon project. This package provides TypeScript type definitions and interfaces for representing backgammon game states, moves, and related functionality.
 
