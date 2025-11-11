@@ -1,6 +1,6 @@
 {
   "name": "@nodots-llc/backgammon-types",
-  "version": "4.5.1",
+  "version": "4.6.0",
   "description": "Type definitions for Nodots Backgammon",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -37,13 +37,8 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nodots/nodots-backgammon-types.git",
-    "directory": "packages/types"
+    "url": "git+https://github.com/nodots/nodots-backgammon-types.git"
   },
-  "bugs": {
-    "url": "https://github.com/nodots/nodots-backgammon-types/issues"
-  },
-  "homepage": "https://github.com/nodots/nodots-backgammon-types",
   "keywords": [
     "backgammon",
     "types",
