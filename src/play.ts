@@ -48,6 +48,12 @@ export type BackgammonPlayDoubled = Play & {
   dice: BackgammonDiceRolled
 }
 
+export type BackgammonPlayMoving = Play & {
+  stateKind: 'moving'
+  player: BackgammonPlayerMoving
+  moves: BackgammonMoves
+  // Turn-local undo stack. Frames are complete pre-move snapshots of the moving game state.
+  // Typed as any[] here to avoid circular dependency on BackgammonGameMoving at the types level.
   undo?: { frames: any[] }
 }
 
