@@ -48,10 +48,7 @@ export type BackgammonPlayDoubled = Play & {
   dice: BackgammonDiceRolled
 }
 
-export type BackgammonPlayMoving = Play & {
-  stateKind: 'moving'
-  player: BackgammonPlayerMoving
-  moves: BackgammonMoves
+  undo?: { frames: any[] }
 }
 
 export type BackgammonPlayMoved = Play & {
