@@ -48,7 +48,7 @@ Import the types you need in your TypeScript files:
 import { Game, Move, Player, Board } from '@nodots-llc/backgammon-types'
 ```
 
-Types are designed to be consumed directly in applications and other packages in this monorepo (core, ai, api, client). The package ships `.d.ts` files alongside ESM/CJS-compatible JS for broad tooling support.
+Types are designed to be consumed directly in applications and other packages in this ecosystem (core, ai, api, client). The package ships `.d.ts` files alongside ESM/CJS-compatible JS for broad tooling support.
 
 ## Changelog
 
@@ -68,7 +68,7 @@ Types are designed to be consumed directly in applications and other packages in
 
 **Improvements:**
 
-- Enhanced monorepo build system with TypeScript project references
+- Enhanced workspace build system with TypeScript project references
 - Added clean scripts for package maintenance
 - Improved package.json configuration with proper exports field for history module
 - Build optimizations using `tsc -b` for faster incremental builds
