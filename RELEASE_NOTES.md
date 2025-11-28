@@ -56,7 +56,7 @@ Comprehensive telemetry data captured for each AI move step including:
 
 ### Improvements
 
-- Enhanced monorepo build system with TypeScript project references
+- Enhanced workspace build system with TypeScript project references
 - Added clean scripts for package maintenance
 - Improved package.json configuration with proper exports field for history module
 - Build optimizations using `tsc -b` for faster incremental builds
