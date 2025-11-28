@@ -21,6 +21,8 @@ interface BaseCube {
   owner: BackgammonPlayer | undefined
   value: BackgammonCubeValue | undefined
   offeredBy?: BackgammonPlayer | undefined
+  // Prevent repeat doubles within the same turn (no Beaver implemented)
+  offeredThisTurnBy?: BackgammonPlayer | undefined
 }
 
 interface Cube extends BaseCube {
