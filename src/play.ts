@@ -1,3 +1,35 @@
+/**
+ * Backgammon Play Types
+ *
+ * A "play" represents a player's complete turn, which may consist of multiple moves
+ * (2 for a regular roll, 4 for doubles).
+ *
+ * ## Serialization Contract for `moves` Field
+ *
+ * **IMPORTANT**: The `moves` field has different representations in different contexts:
+ *
+ * - **Core Library (nodots-backgammon-core)**: Uses `Set<BackgammonMove>` for O(1) lookups
+ *   and to ensure move uniqueness during turn processing.
+ *
+ * - **Type Definitions (this package)**: Defines `moves` as `BackgammonMoves` which is
+ *   `BackgammonMove[]` (Array) because JSON serialization cannot represent Sets.
+ *
+ * - **API Responses**: Always returns `moves` as an Array (JSON-serialized).
+ *
+ * - **Client Applications**: Should always expect `moves` to be an Array. Use the
+ *   `transformGameData` utility or `ensureArray` from `@nodots-llc/backgammon-api-utils`
+ *   if there's any doubt about the incoming data format.
+ *
+ * When consuming game data from APIs or WebSocket messages:
+ * 1. The data should already be JSON-serialized (moves as Array)
+ * 2. Use `Array.isArray(moves)` to verify if needed
+ * 3. Never assume moves is a Set in client code
+ *
+ * When working with the core library directly:
+ * 1. Use `Array.from(game.activePlay.moves)` to convert Set to Array
+ * 2. The core library handles this conversion internally for its public APIs
+ */
+
 import { BackgammonBoard } from './board'
 import { BackgammonMoveOrigin } from './checkercontainer'
 import { BackgammonCube } from './cube'
@@ -28,6 +60,15 @@ interface BasePlay {
   id: string
   player: BackgammonPlayer
   board: BackgammonBoard
+  /**
+   * The moves for this play (2 for regular roll, 4 for doubles).
+   *
+   * **Serialization Note**: In the core library this is internally a Set for O(1) lookups,
+   * but in API responses and type definitions it is always an Array (BackgammonMove[]).
+   * Client code should always treat this as an Array.
+   *
+   * @see BackgammonMoves (which is BackgammonMove[])
+   */
   moves?: BackgammonMoves
 }
 
