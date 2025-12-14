@@ -129,6 +129,9 @@ interface BaseGame {
   startTime?: Date
   lastUpdate?: Date
   endTime?: Date
+  // State tracking for equality checks without deep comparison
+  // Incremented on every state change (moves, rolls, turn transitions, etc.)
+  stateVersion?: number
 
   // New attributes for enhanced game tracking
   metadata?: BackgammonGameMetadata
