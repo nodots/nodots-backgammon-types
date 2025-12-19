@@ -16,6 +16,7 @@ export type GameActionType =
   | 'restore-state'
   | 'auto-pass'
   | 'timeout'
+  | 'game-completed'
 
 export type GameActionData = Record<string, unknown>
 
@@ -173,6 +174,7 @@ export interface AITelemetryStep {
   planSource?: 'turn-plan'
   // Engine/mapping context (kept simple for now)
   hintCount?: number
+  hintRankUsed?: number
   mappedOriginId?: string | null
   usedFallback: boolean
   fallbackReason?: string
