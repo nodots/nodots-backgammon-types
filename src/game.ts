@@ -1,7 +1,6 @@
 import { BackgammonBoard } from './board'
 import { BackgammonMoveOrigin } from './checkercontainer'
 import { BackgammonCube } from './cube'
-import { BackgammonGameOutcome } from './game-outcomes'
 import {
   BackgammonPlay,
   BackgammonPlayDoubled,
@@ -206,9 +205,6 @@ export type BackgammonGameMoved = Game & {
 export type BackgammonGameCompleted = Game & {
   stateKind: 'completed'
   winner: string // player.id of the winning player
-  outcome?: BackgammonGameOutcome // 'normal' | 'gammon' | 'backgammon'
-  basePoints?: number // 1, 2, or 3
-  finalScore?: number // basePoints * cube value
 }
 
 export type BackgammonGame =
