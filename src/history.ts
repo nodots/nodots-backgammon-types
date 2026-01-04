@@ -198,4 +198,12 @@ export interface AITelemetryStep {
     destPos?: number | null
     kind?: string
   }>
+  // Executed move snapshot (for history/PR reconstruction)
+  executedFrom?: number
+  executedTo?: number
+  executedOriginId?: string
+  executedDestinationId?: string
+  executedMoveKind?: string
+  executedDieValue?: BackgammonDieValue | number
+  executedIsHit?: boolean
 }
