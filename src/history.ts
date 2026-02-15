@@ -166,12 +166,12 @@ export interface AITelemetryStep {
   step: number
   positionId: string
   roll: [BackgammonDieValue, BackgammonDieValue]
-  rollSource?: 'player-currentRoll' | 'ready-derived'
+  rollSource?: 'player-currentRoll' | 'ready-derived' | 'one-shot'
   singleDieRemaining?: boolean
   // One-shot plan context
   planLength?: number
   planIndex?: number
-  planSource?: 'turn-plan'
+  planSource?: 'turn-plan' | 'one-shot'
   // Engine/mapping context (kept simple for now)
   hintCount?: number
   hintRankUsed?: number
