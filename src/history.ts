@@ -16,6 +16,7 @@ export type GameActionType =
   | 'restore-state'
   | 'auto-pass'
   | 'timeout'
+  | 'game-completed'
 
 export type GameActionData = Record<string, unknown>
 
@@ -165,14 +166,15 @@ export interface AITelemetryStep {
   step: number
   positionId: string
   roll: [BackgammonDieValue, BackgammonDieValue]
-  rollSource?: 'player-currentRoll' | 'ready-derived'
+  rollSource?: 'player-currentRoll' | 'ready-derived' | 'one-shot'
   singleDieRemaining?: boolean
   // One-shot plan context
   planLength?: number
   planIndex?: number
-  planSource?: 'turn-plan'
+  planSource?: 'turn-plan' | 'one-shot'
   // Engine/mapping context (kept simple for now)
   hintCount?: number
+  hintRankUsed?: number
   mappedOriginId?: string | null
   usedFallback: boolean
   fallbackReason?: string
@@ -196,4 +198,13 @@ export interface AITelemetryStep {
     destPos?: number | null
     kind?: string
   }>
+  // Executed move snapshot (for history/PR reconstruction).
+  // String values 'bar'/'off' represent bar entry origins and bear-off destinations.
+  executedFrom?: number | 'bar'
+  executedTo?: number | 'off'
+  executedOriginId?: string
+  executedDestinationId?: string
+  executedMoveKind?: string
+  executedDieValue?: BackgammonDieValue | number
+  executedIsHit?: boolean
 }

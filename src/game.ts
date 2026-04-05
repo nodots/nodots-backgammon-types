@@ -1,6 +1,7 @@
 import { BackgammonBoard } from './board'
 import { BackgammonMoveOrigin } from './checkercontainer'
 import { BackgammonCube } from './cube'
+import { MatchInfo } from './match'
 import {
   BackgammonPlay,
   BackgammonPlayDoubled,
@@ -129,6 +130,10 @@ interface BaseGame {
   startTime?: Date
   lastUpdate?: Date
   endTime?: Date
+  endReason?: BackgammonEndReason
+  // State tracking for equality checks without deep comparison
+  // Incremented on every state change (moves, rolls, turn transitions, etc.)
+  stateVersion?: number
 
   // New attributes for enhanced game tracking
   metadata?: BackgammonGameMetadata
@@ -144,6 +149,8 @@ interface BaseGame {
     useMurphyRule?: boolean
     useHollandRule?: boolean
   }
+  // Match context - present when game is part of a match
+  matchInfo?: MatchInfo
   settings: {
     allowUndo?: boolean
     allowResign?: boolean
@@ -199,9 +206,18 @@ export type BackgammonGameMoved = Game & {
   inactivePlayer: BackgammonPlayerInactive
 }
 
+export type BackgammonWinType = 'simple' | 'gammon' | 'backgammon'
+export type BackgammonEndReason =
+  | 'bearoff'
+  | 'cube_drop'
+  | 'resignation'
+  | 'abandoned'
+
 export type BackgammonGameCompleted = Game & {
   stateKind: 'completed'
   winner: string // player.id of the winning player
+  winType?: BackgammonWinType // How the game was won (simple, gammon, backgammon)
+  pointsWon?: number // Total points won (winType multiplier * cube value)
 }
 
 export type BackgammonGame =
@@ -241,6 +257,8 @@ export interface GameClass {
     useMurphyRule?: boolean
     useHollandRule?: boolean
   }
+  // Match context - present when game is part of a match
+  matchInfo?: MatchInfo
   settings: {
     allowUndo?: boolean
     allowResign?: boolean
