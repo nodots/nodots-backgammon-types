@@ -53,6 +53,6 @@
     "typescript": "^5.7.3"
   },
   "engines": {
-    "node": ">=20 <21"
+    "node": ">=22"
   }
 }
