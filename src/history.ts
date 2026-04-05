@@ -198,9 +198,10 @@ export interface AITelemetryStep {
     destPos?: number | null
     kind?: string
   }>
-  // Executed move snapshot (for history/PR reconstruction)
-  executedFrom?: number
-  executedTo?: number
+  // Executed move snapshot (for history/PR reconstruction).
+  // String values 'bar'/'off' represent bar entry origins and bear-off destinations.
+  executedFrom?: number | 'bar'
+  executedTo?: number | 'off'
   executedOriginId?: string
   executedDestinationId?: string
   executedMoveKind?: string
