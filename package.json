@@ -34,7 +34,7 @@
     "prepublishOnly": "npm run build"
   },
   "author": "Ken Riley <kenr@nodots.com>",
-  "license": "MIT",
+  "license": "GPL-3.0",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/nodots/nodots-backgammon-types.git"
