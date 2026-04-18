@@ -17,7 +17,7 @@
  * - **API Responses**: Always returns `moves` as an Array (JSON-serialized).
  *
  * - **Client Applications**: Should always expect `moves` to be an Array. Use the
- *   `transformGameData` utility or `ensureArray` from `@nodots-llc/backgammon-api-utils`
+ *   `transformGameData` utility or `ensureArray` from `@nodots/backgammon-api-utils`
  *   if there's any doubt about the incoming data format.
  *
  * When consuming game data from APIs or WebSocket messages:
