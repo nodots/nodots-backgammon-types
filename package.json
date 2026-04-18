@@ -1,6 +1,6 @@
 {
-  "name": "@nodots-llc/backgammon-types",
-  "version": "4.6.4-staging.15",
+  "name": "@nodots/backgammon-types",
+  "version": "1.0.0-rc.1",
   "description": "Type definitions for Nodots Backgammon",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -34,10 +34,10 @@
     "prepublishOnly": "npm run build"
   },
   "author": "Ken Riley <kenr@nodots.com>",
-  "license": "MIT",
+  "license": "GPL-3.0",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nodots/nodots-backgammon-types.git"
+    "url": "git+https://github.com/nodots/backgammon-types.git"
   },
   "keywords": [
     "backgammon",
