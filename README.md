@@ -1,6 +1,6 @@
-# @nodots-llc/backgammon-types
+# @nodots/backgammon-types
 
-Current version: 1.0.0-rc.3
+Current version: 1.0.0
 
 Type definitions for the nodots-backgammon project. This package provides TypeScript type definitions and interfaces for representing backgammon game states, moves, and related functionality.
 
@@ -21,7 +21,7 @@ This package contains TypeScript type definitions for:
 Install the package from npm:
 
 ```bash
-npm install @nodots-llc/backgammon-types
+npm install @nodots/backgammon-types
 ```
 
 ## Project Structure
@@ -45,7 +45,7 @@ The type definitions are organized into the following modules:
 Import the types you need in your TypeScript files:
 
 ```typescript
-import { Game, Move, Player, Board } from '@nodots-llc/backgammon-types'
+import { Game, Move, Player, Board } from '@nodots/backgammon-types'
 ```
 
 Types are designed to be consumed directly in applications and other packages in this ecosystem (core, ai, api, client). The package ships `.d.ts` files alongside ESM/CJS-compatible JS for broad tooling support.
