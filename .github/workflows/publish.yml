@@ -1,0 +1,44 @@
+name: Publish to npm
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    env:
+      NPM_CONFIG_PROVENANCE: "true"
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.x'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Dry-run pack
+        run: npm pack --dry-run
+
+      - name: Configure npm auth fallback
+        env:
+          NPM_PUBLISH_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
+        run: |
+          if [ -n "${NPM_PUBLISH_TOKEN}" ]; then
+            echo "//registry.npmjs.org/:_authToken=${NPM_PUBLISH_TOKEN}" > ~/.npmrc
+            echo "Configured npm auth from NPM_PUBLISH_TOKEN"
+          else
+            echo "No NPM_PUBLISH_TOKEN; relying on OIDC Trusted Publisher"
+          fi
+
+      - name: Publish
+        run: npm publish --provenance --access public
