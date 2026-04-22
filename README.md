@@ -1,91 +1,67 @@
 # @nodots/backgammon-types
 
-Current version: 1.0.0
+Discriminated-union type contracts for every runtime in the [Nodots Backgammon](https://backgammon.nodots.com) ecosystem: game state, board, moves, dice, cube, match history, XG import, practice mode, and i18n.
 
-Type definitions for the nodots-backgammon project. This package provides TypeScript type definitions and interfaces for representing backgammon game states, moves, and related functionality.
+## Install
 
-## Overview
-
-This package contains TypeScript type definitions for:
-
-- Game state and management
-- Board representation
-- Checker movements and positions
-- Dice rolls and cube decisions
-- Player information and states
-- Move validation and game rules
-- Game offers and decisions
-
-## Installation
-
-Install the package from npm:
-
-```bash
+```sh
 npm install @nodots/backgammon-types
 ```
 
-## Project Structure
+## Why a separate types package
 
-The type definitions are organized into the following modules:
+One contract has to hold across the core engine, the API server, the web client, and the CLI. Pinning the contract in a standalone package means a breaking change surfaces as a TypeScript error in every consumer at build time — not as a runtime bug in production.
 
-- `board.ts` - Board state and position types
-- `checker.ts` - Checker representation and movement
-- `checkercontainer.ts` - Container management for checkers
-- `cube.ts` - Doubling cube related types
-- `dice.ts` - Dice roll types and validation
-- `game.ts` - Core game state and management
-- `move.ts` - Move representation and validation
-- `offer.ts` - Game offers (double, resign, etc.)
-- `pip.ts` - Pip counting and management
-- `play.ts` - Play action types and validation
-- `player.ts` - Player state and management
+## Example
 
-## Usage
+```ts
+import type {
+  BackgammonGame,
+  BackgammonPlayer,
+  BackgammonBoard,
+} from '@nodots/backgammon-types'
 
-Import the types you need in your TypeScript files:
+function isRolling(game: BackgammonGame): boolean {
+  return game.stateKind === 'rolling'
+}
 
-```typescript
-import { Game, Move, Player, Board } from '@nodots/backgammon-types'
+function activePlayer(game: BackgammonGame): BackgammonPlayer | undefined {
+  return game.players.find((p) => p.stateKind !== 'inactive')
+}
 ```
 
-Types are designed to be consumed directly in applications and other packages in this ecosystem (core, ai, api, client). The package ships `.d.ts` files alongside ESM/CJS-compatible JS for broad tooling support.
+## What's in the package
 
-## Development
+| Module | Contents |
+| --- | --- |
+| `board`, `checker`, `checkercontainer` | Board geometry and the dual-direction position system. |
+| `game`, `play`, `move` | Game and play state machines, move sequences, legal-move options. |
+| `dice`, `cube` | Dice rolls (regular and doubles) and doubling-cube state. |
+| `player`, `players` | Player identity, direction, turn state, robot flag. |
+| `offer`, `doubling` | Cube offer/accept/decline state. |
+| `history`, `match` | Append-only game history and multi-game match metadata. |
+| `import`, `xg` | ExtremeGammon `.mat` / `.xg` import contracts. |
+| `practice` | Drill-mode position and scoring types. |
+| `pip`, `met` | Pip counts and match-equity-table interfaces. |
+| `LocaleCode` | Supported UI locales: `en`, `es`, `fr`, `ar`, `tr`, `de`, `gr`. |
 
-### Prerequisites
+## Discriminated unions
 
-- Node.js (Latest LTS recommended)
-- npm
+Game and play state are discriminated on `stateKind`. The compiler enforces which operations are legal at each phase — `Game.roll` only accepts `rolling-for-start` or `rolling`, `Game.move` only accepts `moving`, and so on.
 
-### Setup
+## Ecosystem
 
-1. Clone the repository
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
+| Package | Role |
+| --- | --- |
+| [`@nodots/backgammon-types`](https://www.npmjs.com/package/@nodots/backgammon-types) | Type contracts (this package). |
+| [`@nodots/backgammon-core`](https://www.npmjs.com/package/@nodots/backgammon-core) | Game logic. |
+| [`@nodots/backgammon-ai`](https://www.npmjs.com/package/@nodots/backgammon-ai) | GNU-backed robot move selection. |
+| [`@nodots/backgammon-api-utils`](https://www.npmjs.com/package/@nodots/backgammon-api-utils) | Request, response, and WebSocket contracts. |
+| [`@nodots/backgammon-cli`](https://www.npmjs.com/package/@nodots/backgammon-cli) | Terminal client (`ndbg`). |
+| [`@nodots/gnubg-hints`](https://www.npmjs.com/package/@nodots/gnubg-hints) | Native GNU Backgammon hints addon. |
 
-### Building
-
-To compile the TypeScript files:
-
-```bash
-npm run build
-```
-
-This will generate the compiled JavaScript and type definition files in the `dist` directory.
-
-### Scripts
-
-- `npm run build` - Compiles the TypeScript code
-- `npm run prepare` - Runs automatically before the package is packed or installed
+Hosted product: [backgammon.nodots.com](https://backgammon.nodots.com).
 
 ## License
 
-MIT License - See LICENSE file for details
-
-## Author
-
-Ken Riley <kenr@nodots.com>
-
-> Note: This package provides shared TypeScript types used by core, ai, api, and client packages.
+GPL-3.0. See [`LICENSE`](./LICENSE).
