@@ -104,6 +104,15 @@ export interface BackgammonGameStatistics {
   }>
 }
 
+// A pending resignation offer. The game's stateKind is unchanged while the
+// offer is open; accept completes the game at the offered points (times cube),
+// decline clears the offer and play resumes.
+export interface BackgammonResignationOffer {
+  offeredById: string // player.id of the player offering to resign
+  points: 1 | 2 | 3 // simple | gammon | backgammon stakes offered
+  offeredAt: Date
+}
+
 export interface BackgammonGameTiming {
   timeLimit?: number // in seconds, undefined = no limit
   timePerMove?: number // in seconds, undefined = no limit
@@ -151,6 +160,8 @@ interface BaseGame {
   }
   // Match context - present when game is part of a match
   matchInfo?: MatchInfo
+  // Present only while a resignation offer awaits the opponent's response
+  resignationOffer?: BackgammonResignationOffer
   settings: {
     allowUndo?: boolean
     allowResign?: boolean
